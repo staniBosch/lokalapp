@@ -34,7 +34,10 @@ router.post('/', function(req, res) {
     else
     con.query(sql, function (err, result) {
       if (err) throw err;
-      else console.log("Data created and added");
+      else{
+         console.log("Data created and added");
+         res.send(req.body);
+      }
       res.end();
       con.release();
     });
