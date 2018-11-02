@@ -6,7 +6,7 @@ The Service is running on Port 3000.
 To use the code modify the api/models/database.js.
 Run npm -install.
 
-https://sbcon.ddns.net:3000/api/...
+http://sbcon.ddns.net:3000/api/...
 
 # Paths
 
