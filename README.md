@@ -1,6 +1,12 @@
 # lokalappRest
-lokalappRest is a Restful Service for gathering Sensor-Data. 
+lokalappRest is a Restful Service for gathering Sensor-Data. Its written in Javascript and requieres Node.js.
 Content-Type is Json.
+
+The Service is running on Port 3000.
+To use the code modify the api/models/database.js.
+Run npm -install.
+
+https://sbcon.ddns.net:3000/api/...
 
 # Paths
 
