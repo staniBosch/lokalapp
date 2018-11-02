@@ -28,7 +28,12 @@ router.post('/', function(req, res) {
   /* TODO:
    * create an gps-sendor-data and add it to the database
    */
+  
+   if(req.body instanceof Array)
+  var sql = 'INSERT INTO gps (id, timestamp, Latitude, Longitude, Hoehe) VALUES (NULL, CURRENT_TIMESTAMP, \''+req.body[0].Latitude+'\', \''+req.body[0].Longitude+'\', \''+req.body[0].Hoehe+'\')';
+  else 
   var sql = 'INSERT INTO gps (id, timestamp, Latitude, Longitude, Hoehe) VALUES (NULL, CURRENT_TIMESTAMP, \''+req.body.Latitude+'\', \''+req.body.Longitude+'\', \''+req.body.Hoehe+'\')';
+  
   db.pool.getConnection(function(err, con) {
     if(err) return res.status(400).send("Database Error");
     else
