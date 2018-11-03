@@ -28,7 +28,7 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res) {
 
   /* TODO:
-   * create an activity and add to the database
+   * create an accelerometer-sensor-data and add to the database
    */
   var sql = 'INSERT INTO accelerometer (id, timestamp, x, y, z) VALUES (NULL, CURRENT_TIMESTAMP, \''+req.body.x+'\', \''+req.body.y+'\', \''+req.body.z+'\')';
   db.pool.getConnection(function(err, con) {

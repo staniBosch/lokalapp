@@ -26,7 +26,7 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res) {
 
   /* TODO:
-   * create an gps-sendor-data and add it to the database
+   * create an gps-sensor-data and add it to the database
    */
   var temp;
    if(req.body instanceof Array)
