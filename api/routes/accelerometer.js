@@ -16,8 +16,7 @@ router.get('/', function(req, res, next) {
     else
     con.query("SELECT * FROM accelerometer", function (err, result, fields) {
       if (err) throw err;
-      else 
-            res.status(200).send("Nothing here yet");
+      else res.status(200).send(result);
       res.end();
       con.release();
     });  
