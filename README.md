@@ -16,20 +16,20 @@ http://sbcon.ddns.net:3000/api/gps
 | Sensor  | GET | POST  | POST-JSON-Data |
 | ------------- | ------------- | ------------- | ------------- |
 | *GPS*  | .../api/gps  | .../api/gps  | {"Latitude":"Value-Double", "Longitude:"Value-Double", "Hoehe":"Value-Double"}  |
-| *Accelerometer*  | .../api/accelerometer  | .../api/accelerometer  | {}  |
-| *Batterie*  | .../api/batterie  | .../api/batterie  | {}  |
-| *Gyroskop*  | .../api/gyroskop  | .../api/gyroskop  | {}  |
-| *Kompass*  | .../api/kompass  | .../api/kompass  | {}  |
-| *Licht*  | .../api/licht  | .../api/licht  | {}  |
-| *Luftfeuchtigkeit*  | .../api/luftfeuchtigkeit  | .../api/luftfeuchtigkeit  | {}  |
-| *Magnetometer*  | .../api/magnetometer  | .../api/magnetometer  | {}  |
-| *Netzwerklokalisierung*  | .../api/netzwerklokalisierung  | .../api/netzwerklokalisierung  | {}  |
-| *Proximity*  | .../api/proximity  | .../api/proximity  | {}  |
-| *Schrittzaehler*  | .../api/schrittzaehler  | .../api/schrittzaehler  | {}  |
-| *Schwerkraft*  | .../api/schwerkraft  | .../api/schwerkraft  | {}  |
-| *Umgebungsluftdruck*  | .../api/umgebungsluftdruck  | .../api/umgebungsluftdruck  | {}  |
-| *Umgebungstemperatur*  | .../api/umgebungstemperatur  | .../api/umgebungstemperatur  | {}  |
-| *Wifi*  | .../api/wifi  | .../api/wifi  | {}  |
+| *Accelerometer*  | .../api/accelerometer  | .../api/accelerometer  | {"x":"Value-Double", "y:"Value-Double", "z":"Value-Double"}  |
+| *Batterie*  | .../api/batterie  | .../api/batterie  | {"Value":"Value-Double"}  |
+| *Gyroskop*  | .../api/gyroskop  | .../api/gyroskop  | {"x":"Value-Double", "y:"Value-Double", "z":"Value-Double"}  |
+| *Kompass*  | .../api/kompass  | .../api/kompass  | {"degree":"Value-Double"}  |
+| *Licht*  | .../api/licht  | .../api/licht  | {"lux":"Value-Float"}  |
+| *Luftfeuchtigkeit*  | .../api/luftfeuchtigkeit  | .../api/luftfeuchtigkeit  | {humidity:"Value-Double"}  |
+| *Magnetometer*  | .../api/magnetometer  | .../api/magnetometer  | {"x":"Value-Double", "y:"Value-Double", "z":"Value-Double"}  |
+| *Netzwerklokalisierung*  | .../api/netzwerklokalisierung  | .../api/netzwerklokalisierung  | {"Value":"Value-Double"}  |
+| *Proximity*  | .../api/proximity  | .../api/proximity  | {"Value":"Value-Double"}  |
+| *Schrittzaehler*  | .../api/schrittzaehler  | .../api/schrittzaehler  | {"Value":"Value-Double"}  |
+| *Schwerkraft*  | .../api/schwerkraft  | .../api/schwerkraft  | {"Value":"Value-Double"}  |
+| *Umgebungsluftdruck*  | .../api/umgebungsluftdruck  | .../api/umgebungsluftdruck  | {"Value":"Value-Double"}  |
+| *Umgebungstemperatur*  | .../api/umgebungstemperatur  | .../api/umgebungstemperatur  | {"Value":"Value-Double"}  |
+| *Wifi*  | .../api/wifi  | .../api/wifi  | {"Value":"Value-Double"}  |
 
 
 
