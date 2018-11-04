@@ -4,43 +4,42 @@ var db = require('../models/database');
 
 
 
-// GET /api/???/
+// GET /api/umgebungsluftdruck
 router.get('/', function(req, res, next) {
  
   /* TODO:
-   * get all ??? from the database
+   * get all umgebungsluftdruck-data from the database
    */
 
   db.pool.getConnection(function(err, con) {
     if(err) return res.status(400).send("Databse Error");
     else
-    //con.query("SELECT * FROM ???", function (err, result, fields) {
-    //  if (err) throw err;
-    //  else 
-            res.status(200).send("Nothing here yet");
+    con.query("SELECT * FROM umgebungsluftdruck", function (err, result, fields) {
+      if (err) throw err;
+      else res.status(200).send(result);
       res.end();
       con.release();
-//    });  
+    });  
   }); 
 });
 
-// POST /api/???/
+// POST /api/umgebungsluftdruck/
 router.post('/', function(req, res) {
 
   /* TODO:
-   * create an activity and add to the database
+   * create an umgebungsluftdruck-value and add to the database
    */
-  //var sql = 'INSERT INTO ??? (???) VALUES ('+req.body.ID+', \''+req.body.Data+'\')';
+  var sql = 'INSERT INTO umgebungsluftdruck (id, timestamp, value) VALUES (NULL, CURRENT_TIMESTAMP, \''+req.body.value+'\')';
   db.pool.getConnection(function(err, con) {
     if(err) return res.status(400).send("Databse Error");
     else
-//    con.query(sql, function (err, result) {
-//      if (err) throw err;
-//      else 
+    con.query(sql, function (err, result) {
+      if (err) throw err;
+      else 
         console.log("Data created and added");
       res.end();
       con.release();
-//   });
+   });
   });  
 });
 
