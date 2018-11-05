@@ -33,7 +33,7 @@ router.post('/', function (req, res) {
     temp = req.body[0];
   else
     temp = req.body;
-  if (temp.session_id != null) {
+  if (temp.session_id != "-1" && temp.session_id != null) {
     var sql = 'INSERT INTO gps (id, timestamp, Latitude, Longitude, Hoehe, session_id) VALUES (NULL, CURRENT_TIMESTAMP, \'' + temp.Latitude + '\', \'' + temp.Longitude + '\', \'' + temp.Hoehe + '\', \'' + temp.session_id + '\')';
 
     db.pool.getConnection(function (err, con) {

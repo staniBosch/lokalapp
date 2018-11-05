@@ -29,7 +29,7 @@ router.post('/', function(req, res) {
   /* TODO:
    * create an gyroskop-value and add to the database
    */
-  if(req.body.session_id != null){
+  if(req.body.session_id != "-1" && req.body.session_id != null){
     var sql = 'INSERT INTO gyroskop (id, timestamp, x, y, z, session_id) VALUES (NULL, CURRENT_TIMESTAMP, \''+req.body.x+'\', \''+req.body.y+'\', \''+req.body.z+'\', \''+req.body.session_id+'\')';
     db.pool.getConnection(function(err, con) {
       if(err) return res.status(400).send("Databse Error");
