@@ -34,9 +34,9 @@ router.post('/', function(req, res) {
   else 
   temp = req.body;
   if(temp.device_id != null)
-  var sql = 'INSERT INTO gps (id, timestamp, Latitude, Longitude, Hoehe, device_id) VALUES (NULL, CURRENT_TIMESTAMP, \''+temp.Latitude+'\', \''+temp.Longitude+'\', \''+temp.Hoehe+'\', \''+temp.device_id+'\')';
+  var sql = 'INSERT INTO gps (id, timestamp, Latitude, Longitude, Hoehe, session_id) VALUES (NULL, CURRENT_TIMESTAMP, \''+temp.Latitude+'\', \''+temp.Longitude+'\', \''+temp.Hoehe+'\', \''+temp.session_id+'\')';
   else
-  var sql = 'INSERT INTO gps (id, timestamp, Latitude, Longitude, Hoehe, device_id) VALUES (NULL, CURRENT_TIMESTAMP, \''+temp.Latitude+'\', \''+temp.Longitude+'\', \''+temp.Hoehe+'\')';
+  var sql = 'INSERT INTO gps (id, timestamp, Latitude, Longitude, Hoehe, session_id) VALUES (NULL, CURRENT_TIMESTAMP, \''+temp.Latitude+'\', \''+temp.Longitude+'\', \''+temp.Hoehe+'\')';
   
   db.pool.getConnection(function(err, con) {
     if(err) return res.status(400).send("Database Error");

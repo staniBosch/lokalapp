@@ -4,17 +4,17 @@ var db = require('../models/database');
 
 
 
-// GET /api/device
+// GET /api/session
 router.get('/', function(req, res, next) {
  
   /* TODO:
-   * get all device-data from the database
+   * get all session-data from the database
    */
 
   db.pool.getConnection(function(err, con) {
     if(err) return res.status(400).send("Databse Error");
     else
-    con.query("SELECT * FROM device", function (err, result, fields) {
+    con.query("SELECT * FROM session", function (err, result, fields) {
       if (err) throw err;
       else res.status(200).send(result);
       res.end();
@@ -23,13 +23,13 @@ router.get('/', function(req, res, next) {
   }); 
 });
 
-// POST /api/device/
+// POST /api/session/
 router.post('/', function(req, res) {
 
   /* TODO:
-   * create an device-value and add to the database
+   * create an session-value and add to the database
    */
-  var sql = 'INSERT INTO device (id, timestamp, value) VALUES (NULL, CURRENT_TIMESTAMP, \''+req.body.value+'\')';
+  var sql = 'INSERT INTO session (id, timestamp, value) VALUES (NULL, CURRENT_TIMESTAMP, \''+req.body.value+'\')';
   db.pool.getConnection(function(err, con) {
     if(err) return res.status(400).send("Databse Error");
     else

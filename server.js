@@ -7,7 +7,7 @@ const http = require('http');
 const cors = require('cors');
 
 // Require REST-Routes
-const deviceRouter = require('./api/routes/device');
+const sessionRouter = require('./api/routes/session');
 const gpsRouter = require('./api/routes/gps');
 const accelerometerRouter = require('./api/routes/accelerometer');
 const batterieRouter = require('./api/routes/batterie');
@@ -41,7 +41,7 @@ app.use(cors());
 
 // Set REST-Routes
 app.use('/api/gps', gpsRouter);
-app.use('/api/device', deviceRouter);
+app.use('/api/session', sessionRouter);
 app.use('/api/accelerometer', accelerometerRouter);
 app.use('/api/gps', batterieRouter);
 app.use('/api/batterie', bluetoothRouter);
