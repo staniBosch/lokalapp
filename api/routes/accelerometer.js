@@ -43,9 +43,7 @@ router.post('/', function (req, res) {
           res.end();
           con.release();
         });
-    });
-  }
- 
+    }); 
 });
 
 module.exports = router;
