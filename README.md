@@ -12,24 +12,27 @@ http://sbcon.ddns.net:3000/api/gps
 
 ### Paths
 
+| Usage  | GET | POST  | POST-JSON-Data |
+| ------------- | ------------- | ------------- | ------------- |
+| *Session*  | .../api/session  | .../api/session  | {"value":"Value-String"}  |
 
 | Sensor  | GET | POST  | POST-JSON-Data |
 | ------------- | ------------- | ------------- | ------------- |
-| *GPS*  | .../api/gps  | .../api/gps  | {"Latitude":"Value-Double", "Longitude:"Value-Double", "Hoehe":"Value-Double"}  |
-| *Accelerometer*  | .../api/accelerometer  | .../api/accelerometer  | {"x":"Value-Double", "y:"Value-Double", "z":"Value-Double"}  |
-| *Batterie*  | .../api/batterie  | .../api/batterie  | {"Value":"Value-Double"}  |
-| *Gyroskop*  | .../api/gyroskop  | .../api/gyroskop  | {"x":"Value-Double", "y:"Value-Double", "z":"Value-Double"}  |
-| *Kompass*  | .../api/kompass  | .../api/kompass  | {"degree":"Value-Double"}  |
-| *Licht*  | .../api/licht  | .../api/licht  | {"lux":"Value-Float"}  |
-| *Luftfeuchtigkeit*  | .../api/luftfeuchtigkeit  | .../api/luftfeuchtigkeit  | {humidity:"Value-Double"}  |
-| *Magnetometer*  | .../api/magnetometer  | .../api/magnetometer  | {"x":"Value-Double", "y:"Value-Double", "z":"Value-Double"}  |
-| *Netzwerklokalisierung*  | .../api/netzwerklokalisierung  | .../api/netzwerklokalisierung  | {"Value":"Value-Double"}  |
-| *Proximity*  | .../api/proximity  | .../api/proximity  | {"Value":"Value-Double"}  |
-| *Schrittzaehler*  | .../api/schrittzaehler  | .../api/schrittzaehler  | {"Value":"Value-Double"}  |
-| *Schwerkraft*  | .../api/schwerkraft  | .../api/schwerkraft  | {"Value":"Value-Double"}  |
-| *Umgebungsluftdruck*  | .../api/umgebungsluftdruck  | .../api/umgebungsluftdruck  | {"Value":"Value-Double"}  |
-| *Umgebungstemperatur*  | .../api/umgebungstemperatur  | .../api/umgebungstemperatur  | {"Value":"Value-Double"}  |
-| *Wifi*  | .../api/wifi  | .../api/wifi  | {"Value":"Value-Double"}  |
+| *GPS*  | .../api/gps  | .../api/gps  | {"Latitude":"Value-Double", "Longitude:"Value-Double", "Hoehe":"Value-Double", "session_id":"Value-Integer"}  |
+| *Accelerometer*  | .../api/accelerometer  | .../api/accelerometer  | {"x":"Value-Double", "y:"Value-Double", "z":"Value-Double", "session_id":"Value-Integer"}  |
+| *Batterie*  | .../api/batterie  | .../api/batterie  | {"Value":"Value-Double", "session_id":"Value-Integer"}  |
+| *Gyroskop*  | .../api/gyroskop  | .../api/gyroskop  | {"x":"Value-Double", "y:"Value-Double", "z":"Value-Double", "session_id":"Value-Integer"}  |
+| *Kompass*  | .../api/kompass  | .../api/kompass  | {"degree":"Value-Double", "session_id":"Value-Integer"}  |
+| *Licht*  | .../api/licht  | .../api/licht  | {"lux":"Value-Float", "session_id":"Value-Integer"}  |
+| *Luftfeuchtigkeit*  | .../api/luftfeuchtigkeit  | .../api/luftfeuchtigkeit  | {humidity:"Value-Double", "session_id":"Value-Integer"}  |
+| *Magnetometer*  | .../api/magnetometer  | .../api/magnetometer  | {"x":"Value-Double", "y:"Value-Double", "z":"Value-Double", "session_id":"Value-Integer"}  |
+| *Netzwerklokalisierung*  | .../api/netzwerklokalisierung  | .../api/netzwerklokalisierung  | {"Value":"Value-Double", "session_id":"Value-Integer"}  |
+| *Proximity*  | .../api/proximity  | .../api/proximity  | {"Value":"Value-Double", "session_id":"Value-Integer"}  |
+| *Schrittzaehler*  | .../api/schrittzaehler  | .../api/schrittzaehler  | {"Value":"Value-Double", "session_id":"Value-Integer"}  |
+| *Schwerkraft*  | .../api/schwerkraft  | .../api/schwerkraft  | {"Value":"Value-Double", "session_id":"Value-Integer"}  |
+| *Umgebungsluftdruck*  | .../api/umgebungsluftdruck  | .../api/umgebungsluftdruck  | {"Value":"Value-Double", "session_id":"Value-Integer"}  |
+| *Umgebungstemperatur*  | .../api/umgebungstemperatur  | .../api/umgebungstemperatur  | {"Value":"Value-Double", "session_id":"Value-Integer"}  |
+| *Wifi*  | .../api/wifi  | .../api/wifi  | {"Value":"Value-Double", "session_id":"Value-Integer"}  |
 
 
 
