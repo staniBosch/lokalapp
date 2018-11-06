@@ -14,7 +14,7 @@ router.get('/', function (req, res, next) {
   db.pool.getConnection(function (err, con) {
     if (err) return res.status(400).send("Databse Error");
     else
-      con.query("SELECT * FROM netzwerk-lokalisierung", function (err, result, fields) {
+      con.query("SELECT * FROM netzwerklokalisierung", function (err, result, fields) {
         if (err) throw err;
         else res.status(200).send(result);
         res.end();
@@ -23,13 +23,13 @@ router.get('/', function (req, res, next) {
   });
 });
 
-// POST /api/netzwerk-lokalisierung/
+// POST /api/netzwerklokalisierung/
 router.post('/', function (req, res) {
 
   /* TODO:
-   * create an netzwerk-lokalisierung-value and add to the database
+   * create an netzwerklokalisierung-value and add to the database
    */
-  var sql = 'INSERT INTO netzwerk-lokalisierung (id, timestamp, x, y, z, session_id) VALUES (NULL, CURRENT_TIMESTAMP, \'' + req.body.x + '\', \'' + req.body.y + '\', \'' + req.body.z + '\', \'' + req.body.session_id + '\')';
+  var sql = 'INSERT INTO netzwerklokalisierung (id, timestamp, x, y, z, session_id) VALUES (NULL, CURRENT_TIMESTAMP, \'' + req.body.x + '\', \'' + req.body.y + '\', \'' + req.body.z + '\', \'' + req.body.session_id + '\')';
   db.pool.getConnection(function (err, con) {
     if (err) return res.status(400).send("Databse Error");
     else
