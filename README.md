@@ -15,6 +15,7 @@ http://sbcon.ddns.net:3000/api/gps
 | Usage  | GET | POST  | POST-JSON-Data |
 | ------------- | ------------- | ------------- | ------------- |
 | *Session*  | .../api/session  | .../api/session  | {"value":"Value-String"}  |
+| *Session with SensorData*  | .../api/session/id/:id/:sensor  | ---  | ---  |
 
 | Sensor  | GET | POST  | POST-JSON-Data |
 | ------------- | ------------- | ------------- | ------------- |
