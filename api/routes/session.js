@@ -23,6 +23,27 @@ router.get('/', function(req, res, next) {
   }); 
 });
 
+// GET /api/session/:id/:sensor
+router.get('/id/:id/:sensor', function(req, res, next) {
+ 
+  /* TODO:
+   * get all session-data from the database
+   */
+  var sensor = req.params.sensor;
+  var id = req.params.id;
+  var sql = "SELECT * FROM session inner join "+ sensor+" on session.id="+sensor+".session_id where session.id="+id;
+  db.pool.getConnection(function(err, con) {
+    if(err) return res.status(400).send("Databse Error");
+    else
+    con.query(sql , function (err, result, fields) {
+      if (err) throw err;
+      else res.status(200).send(result);
+      res.end();
+      con.release();
+    });  
+  }); 
+});
+
 // POST /api/session/
 router.post('/', function(req, res) {
 

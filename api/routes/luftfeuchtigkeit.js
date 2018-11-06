@@ -29,7 +29,7 @@ router.post('/', function(req, res) {
   /* TODO:
    * create an luftfeuchtigkeit-value and add to the database
    */
-  var sql = 'INSERT INTO luftfeuchtigkeit (id, timestamp, humidity) VALUES (NULL, CURRENT_TIMESTAMP, \''+req.body.humidity+'\')';
+  var sql = 'INSERT INTO luftfeuchtigkeit (id, timestamp, humidity, session_id) VALUES (NULL, CURRENT_TIMESTAMP, \''+req.body.humidity+'\', \'' + req.body.session_id + '\')';
   db.pool.getConnection(function(err, con) {
     if(err) return res.status(400).send("Databse Error");
     else

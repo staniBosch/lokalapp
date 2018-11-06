@@ -29,20 +29,20 @@ router.post('/', function(req, res) {
   /* TODO:
    * create an bluetooth-value and add to the database
    */
-  var sql = 'INSERT INTO bluetooth (id, timestamp, value) VALUES (NULL, CURRENT_TIMESTAMP, \''+req.body.value+'\')';
-  db.pool.getConnection(function(err, con) {
-    if(err) return res.status(400).send("Databse Error");
-    else
-    con.query(sql, function (err, result) {
-      if (err) throw err;
-      else {
-        console.log("Data created and added");
-        res.send(req.body);
-      }
-      res.end();
-      con.release();
-   });
-  });  
+  var sql = 'INSERT INTO bluetooth (id, timestamp, value, session_id) VALUES (NULL, CURRENT_TIMESTAMP, \'' + req.body.value + '\', \'' + req.body.session_id + '\')';
+    db.pool.getConnection(function (err, con) {
+      if (err) return res.status(400).send("Databse Error");
+      else
+        con.query(sql, function (err, result) {
+          if (err) throw err;
+          else {
+            console.log("Data created and added");
+            res.send(req.body);
+          }
+          res.end();
+          con.release();
+        });
+    });
 });
 
 module.exports = router;
