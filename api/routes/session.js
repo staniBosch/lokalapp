@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
     if(err) return res.status(400).send("Databse Error");
     else
     con.query("SELECT * FROM session", function (err, result, fields) {
-      if (err) throw err;
+      if (err) res.status(400).send(err.code);
       else res.status(200).send(result);
       res.end();
       con.release();
@@ -36,7 +36,7 @@ router.get('/id/:id/:sensor', function(req, res, next) {
     if(err) return res.status(400).send("Databse Error");
     else
     con.query(sql , function (err, result, fields) {
-      if (err) throw err;
+      if (err) res.status(400).send(err.code);
       else res.status(200).send(result);
       res.end();
       con.release();
@@ -55,7 +55,7 @@ router.post('/', function(req, res) {
     if(err) return res.status(400).send("Databse Error");
     else
     con.query(sql, function (err, result) {
-      if (err) throw err;
+      if (err) res.status(400).send(err.code);
       else {
         console.log("Data created and added");        
         res.send({"id" :result.insertId});
