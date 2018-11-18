@@ -15,6 +15,7 @@ http://sbcon.ddns.net:3000/api/gps
 | Usage  | GET | POST  | POST-JSON-Data |
 | ------------- | ------------- | ------------- | ------------- |
 | *Session*  | .../api/session  | .../api/session  | {"value":"Value-String"}  |
+| *Session with SensorData*  | .../api/session/id/:id/:sensor  | ---  | ---  |
 
 | Sensor  | GET | POST  | POST-JSON-Data |
 | ------------- | ------------- | ------------- | ------------- |
@@ -23,7 +24,7 @@ http://sbcon.ddns.net:3000/api/gps
 | *Batterie*  | .../api/batterie  | .../api/batterie  | {"Value":"Value-Double", "session_id":"Value-Integer"}  |
 | *Gyroskop*  | .../api/gyroskop  | .../api/gyroskop  | {"x":"Value-Double", "y:"Value-Double", "z":"Value-Double", "session_id":"Value-Integer"}  |
 | *Kompass*  | .../api/kompass  | .../api/kompass  | {"degree":"Value-Double", "session_id":"Value-Integer"}  |
-| *Licht*  | .../api/licht  | .../api/licht  | {"lux":"Value-Float", "session_id":"Value-Integer"}  |
+| *Licht*  | .../api/licht  | .../api/licht  | {"value":"Value-Float", "session_id":"Value-Integer"}  |
 | *Luftfeuchtigkeit*  | .../api/luftfeuchtigkeit  | .../api/luftfeuchtigkeit  | {humidity:"Value-Double", "session_id":"Value-Integer"}  |
 | *Magnetometer*  | .../api/magnetometer  | .../api/magnetometer  | {"x":"Value-Double", "y:"Value-Double", "z":"Value-Double", "session_id":"Value-Integer"}  |
 | *Netzwerklokalisierung*  | .../api/netzwerklokalisierung  | .../api/netzwerklokalisierung  | {"Value":"Value-Double", "session_id":"Value-Integer"}  |
