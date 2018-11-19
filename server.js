@@ -88,6 +88,19 @@ function normalizePort(val) {
   return false;
 }
 
+//welcome page
+
+var router = express.Router();
+router.get('/', function(req, res) {
+  res.send('<a href="http://localhost:3000/api">api</a>');   
+});
+router.get('/api', function(req, res) {
+  var name = req.param;
+  res.send('<ul><li><a href="http://sbcon.ddns.net:3000/api/session">Session</a></li><li><a href="http://sbcon.ddns.net:3000/api/gps">Gps</a></li><li><a href="http://sbcon.ddns.net:3000/api/accelerometer">Accelerometer</a></li><li><a href="http://sbcon.ddns.net:3000/api/gyroskop">Gyroskop</a></li><li><a href="http://sbcon.ddns.net:3000/api/kompass">Kompass</a></li><li><a href="http://sbcon.ddns.net:3000/api/magnetometer">Magnetometer</a></li><li><a href="http://sbcon.ddns.net:3000/api/netzwerklokalisierung">Netzwerklokalisierung</a></li><li><a href="http://sbcon.ddns.net:3000/api/umgebungsluftdruck">Umgebungsluftdruck</a></li></ul>');   
+});
+app.use('/', router);
+app.use('/api', router);
+
 // Event listener for HTTP server "error" event.
 function onError(error) {
   if (error.syscall !== 'listen') {

@@ -11,20 +11,16 @@ router.get('/', function (req, res, next) {
    * get all kompass-data from the database
    */
 
-  var sql = 'INSERT INTO kompass (id, timestamp, value, session_id) VALUES (NULL, CURRENT_TIMESTAMP, \'' + req.body.value + '\', \'' + req.body.session_id + '\')';
-  db.pool.getConnection(function (err, con) {
-    if (err) return res.status(400).send("Databse Error");
+  db.pool.getConnection(function(err, con) {
+    if(err) return res.status(400).send("Databse Error");
     else
-      con.query(sql, function (err, result) {
-        if (err) return res.status(400).send(err);
-        else {
-          console.log("Data created and added");
-          res.send(req.body);
-        }
-        res.end();
-        con.release();
-      });
-  });
+    con.query("SELECT * FROM kompass", function (err, result, fields) {
+      if (err) throw err;
+      else res.status(200).send(result);
+      res.end();
+      con.release();
+    });  
+  }); 
 }); 
 
   // POST /api/kompass/
