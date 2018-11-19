@@ -92,7 +92,7 @@ function normalizePort(val) {
 
 var router = express.Router();
 router.get('/', function(req, res) {
-  res.send('<a href="http://localhost:3000/api">api</a>');   
+  res.send('<a href="http://sbcon.ddns.net:3000/api">api</a>');   
 });
 router.get('/api', function(req, res) {
   var name = req.param;
