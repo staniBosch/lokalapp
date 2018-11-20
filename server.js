@@ -5,6 +5,8 @@ const logger = require('morgan');
 const debug = require('debug')('web-application:server');
 const http = require('http');
 const cors = require('cors');
+const hostaddr = "http://sbcon.ddns.net:3000/";
+//const hostaddr = "http://localhost:3000/";
 
 // Require REST-Routes
 const sessionRouter = require('./api/routes/session');
@@ -43,8 +45,8 @@ app.use(cors());
 app.use('/api/gps', gpsRouter);
 app.use('/api/session', sessionRouter);
 app.use('/api/accelerometer', accelerometerRouter);
-app.use('/api/gps', batterieRouter);
-app.use('/api/batterie', bluetoothRouter);
+app.use('/api/batterie', batterieRouter);
+app.use('/api/bluetooth', bluetoothRouter);
 app.use('/api/gyroskop', gyroskopRouter);
 app.use('/api/kompass', kompassRouter);
 app.use('/api/licht', lichtRouter);
@@ -91,12 +93,32 @@ function normalizePort(val) {
 //welcome page
 
 var router = express.Router();
+var db = require('./api/models/database');
+
+
+
 router.get('/', function(req, res) {
-  res.send('<a href="http://sbcon.ddns.net:3000/api">api</a>');   
+
+  res.send('<a href="'+hostaddr+'api/">API Version 1.0</a>');   
+  
 });
 router.get('/api', function(req, res) {
-  var name = req.param;
-  res.send('<ul><li><a href="http://sbcon.ddns.net:3000/api/session">Session</a></li><li><a href="http://sbcon.ddns.net:3000/api/gps">Gps</a></li><li><a href="http://sbcon.ddns.net:3000/api/accelerometer">Accelerometer</a></li><li><a href="http://sbcon.ddns.net:3000/api/gyroskop">Gyroskop</a></li><li><a href="http://sbcon.ddns.net:3000/api/kompass">Kompass</a></li><li><a href="http://sbcon.ddns.net:3000/api/magnetometer">Magnetometer</a></li><li><a href="http://sbcon.ddns.net:3000/api/netzwerklokalisierung">Netzwerklokalisierung</a></li><li><a href="http://sbcon.ddns.net:3000/api/umgebungsluftdruck">Umgebungsluftdruck</a></li></ul>');   
+ 
+ var htmlcode = "<ul>";
+db.pool.getConnection(function (err, con) {
+    if (err) return res.status(400).send("Database Error");
+    else
+      con.query("Show tables;", function (err, result, fields) {
+        if (err) throw err;
+        result.forEach(function(obj) { 
+        	var name = obj.Tables_in_lokalapp;
+        	htmlcode = htmlcode+'<li><a href="'+hostaddr+'api/'+name+'">'+name+'</a></li>'; 
+        });
+        res.send(htmlcode+"</ul>");   
+        res.end();
+        con.release();
+      });
+  });
 });
 app.use('/', router);
 app.use('/api', router);
