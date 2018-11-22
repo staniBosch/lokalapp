@@ -104,7 +104,7 @@ router.get('/', function (req, res) {
 });
 router.get('/api', function (req, res) {
 
-  var htmlcode = '<html><head><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"></link></head><body><ul>';
+  var htmlcode = '<html><head> <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="description" content=""><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"></link></head><body><div class="col-sm-8 col-md-7 py-4"><ul>';
   db.pool.getConnection(function (err, con) {
     if (err) return res.status(400).send("Database Error");
     else
@@ -114,7 +114,7 @@ router.get('/api', function (req, res) {
           var name = obj.Tables_in_lokalapp;
           htmlcode = htmlcode + '<li><a href="' + hostaddr + 'api/' + name + '">' + name + '</a></li>';
         });
-        res.send(htmlcode + "</ul></body></html>");
+        res.send(htmlcode + "</ul></div></body></html>");
         res.end();
         con.release();
       });
