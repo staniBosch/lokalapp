@@ -90,7 +90,7 @@ function normalizePort(val) {
   return false;
 }
 
-//welcome page test
+//welcome page
 
 var router = express.Router();
 var db = require('./api/models/database');
