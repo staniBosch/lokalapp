@@ -97,31 +97,41 @@ var db = require('./api/models/database');
 
 
 
-router.get('/', function(req, res) {
+router.get('/', function (req, res) {
 
-  res.send('<a href="'+hostaddr+'api/">API Version 1.0</a>');   
-  
+  res.send('<h1><a href="' + hostaddr + 'api/">API Version 1.0</a></h1></br><a href="' + hostaddr + 'download/">Download App</a>');
+
 });
-router.get('/api', function(req, res) {
- 
- var htmlcode = "<ul>";
-db.pool.getConnection(function (err, con) {
+router.get('/api', function (req, res) {
+
+  var htmlcode = '<html><head><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"></link></head><body><ul>';
+  db.pool.getConnection(function (err, con) {
     if (err) return res.status(400).send("Database Error");
     else
       con.query("Show tables;", function (err, result, fields) {
         if (err) throw err;
-        result.forEach(function(obj) { 
-        	var name = obj.Tables_in_lokalapp;
-        	htmlcode = htmlcode+'<li><a href="'+hostaddr+'api/'+name+'">'+name+'</a></li>'; 
+        result.forEach(function (obj) {
+          var name = obj.Tables_in_lokalapp;
+          htmlcode = htmlcode + '<li><a href="' + hostaddr + 'api/' + name + '">' + name + '</a></li>';
         });
-        res.send(htmlcode+"</ul>");   
+        res.send(htmlcode + "</ul></body></html>");
         res.end();
         con.release();
       });
   });
 });
+
+router.get('/download', function (req, res) {
+
+  var file = __dirname + '/public/download/app-release.apk';
+  res.download(file); // Set disposition and send it.
+
+});
+
+
 app.use('/', router);
 app.use('/api', router);
+app.use('/download', router);
 
 // Event listener for HTTP server "error" event.
 function onError(error) {
