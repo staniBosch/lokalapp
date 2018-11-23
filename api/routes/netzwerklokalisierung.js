@@ -29,7 +29,12 @@ router.post('/', function (req, res) {
   /* TODO:
    * create an netzwerklokalisierung-value and add to the database
    */
-  var sql = 'INSERT INTO netzwerklokalisierung (id, timestamp, Latitude , Longitude, Hoehe, session_id) VALUES (NULL, CURRENT_TIMESTAMP, \'' + req.body.Latitude  + '\', \'' + req.body.Longitude + '\', \'' + req.body.Hoehe + '\', \'' + req.body.session_id + '\')';
+  var temp;
+  if (req.body instanceof Array)
+    temp = req.body[0];
+  else
+    temp = req.body;
+  var sql = 'INSERT INTO netzwerklokalisierung (id, timestamp, Latitude , Longitude, Hoehe, session_id) VALUES (NULL, CURRENT_TIMESTAMP, \'' + temp.Latitude  + '\', \'' + temp.Longitude + '\', \'' + temp.Hoehe + '\', \'' + temp.session_id + '\')';
   db.pool.getConnection(function (err, con) {
     if (err) return res.status(400).send("Databse Error");
     else
