@@ -4,8 +4,14 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const debug = require('debug')('web-application:server');
 const http = require('http');
+const https = require('http');
 const cors = require('cors');
 const hostaddr = "http://sbcon.ddns.net:3000/";
+var privateKey  = fs.readFileSync('/etc/letsencrypt/live/sbcon.ddns.net/privkey.pem', 'utf8');
+var certificate = fs.readFileSync('/etc/letsencrypt/live/sbcon.ddns.net/fullchain.pem', 'utf8');
+
+var credentials = {key: privateKey, cert: certificate};
+const 
 //const hostaddr = "http://localhost:3000/";
 
 // Require REST-Routes
@@ -63,15 +69,22 @@ app.use('/api/wifi', wifiRouter);
 
 // Get port from environment and store in Express.
 const port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
+const sshport = normalizePort(process.env.PORT || '3443');
 
-// Create HTTP server.
+app.set('port', sshport);
+
+// Create HTTP and https server.
 const server = http.createServer(app);
+const sshserver = https.createServer(credentials, app);
 
 // Listen on provided port, on all network interfaces.
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
+sshserver.listen(sshport);
+sshserver.on('error', onError);
+sshserver.on('listening', onListening);
 
 // Normalize a port into a number, string, or false.
 function normalizePort(val) {
