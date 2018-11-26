@@ -13,7 +13,7 @@ const certificate = fs.readFileSync('/etc/letsencrypt/live/sbcon.ddns.net/cert.p
 const ca = fs.readFileSync('/etc/letsencrypt/live/sbcon.ddns.net/chain.pem', 'utf8');
 
 var credentials = {key: privateKey, cert: certificate, ca: ca};
-const 
+
 //const hostaddr = "http://localhost:3000/";
 
 // Require REST-Routes
