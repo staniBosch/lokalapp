@@ -70,6 +70,7 @@ router.post('/', function (req, res) {
       temp['altitudeNoPow'] = 0;
       temp['speedNoPow'] = 0;
     }
+    console.log(temp);
 
   var sql = 'INSERT INTO netzwerklokalisierung (id, timestamp, latitudeGPS, longitudeGPS, altitudeGPS, speedGPS,' 
     +'latitudeNetwork, longitudeNetwork, altitudeNetwork, speedNetwork,'
