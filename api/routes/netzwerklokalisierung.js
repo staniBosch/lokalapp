@@ -74,11 +74,11 @@ router.post('/', function (req, res) {
     +'latitudeLowPow, longitudeLowPow, altitudeLowPow, speedLowPow,' 
     +'latitudeNoPow, longitudeNoPow, altitudeNoPow, speedNoPow, session_id )'
     +' VALUES (NULL, CURRENT_TIMESTAMP, \'' + temp.latitudeGPS  + '\', \'' + temp.longitudeGPS + '\', \'' + temp.altitudeGPS + '\', \'' + temp.speedGPS 
-    + temp.latitudeNetwork  + '\', \'' + temp.longitudeNetwork + '\', \'' + temp.altitudeNetwork + '\', \'' + temp.speedNetwork
-    + temp.latitudeHighAcc  + '\', \'' + temp.longitudeHighAcc + '\', \'' + temp.altitudeHighAcc + '\', \'' + temp.speedHighAcc
-    + temp.latitudeBalanced  + '\', \'' + temp.longitudeBalanced + '\', \'' + temp.altitudeBalanced + '\', \'' + temp.speedBalanced
-    + temp.latitudeLowPow  + '\', \'' + temp.longitudeLowPow + '\', \'' + temp.altitudeLowPow + '\', \'' + temp.speedLowPow
-    + temp.latitudeNoPow  + '\', \'' + temp.longitudeNoPow + '\', \'' + temp.altitudeNoPow + '\', \'' + temp.speedNoPow + '\', \'' + temp.session_id + '\')';
+    + '\', \'' + temp.latitudeNetwork  + '\', \'' + temp.longitudeNetwork + '\', \'' + temp.altitudeNetwork + '\', \'' + temp.speedNetwork
+    + '\', \'' + temp.latitudeHighAcc  + '\', \'' + temp.longitudeHighAcc + '\', \'' + temp.altitudeHighAcc + '\', \'' + temp.speedHighAcc
+    + '\', \'' + temp.latitudeBalanced  + '\', \'' + temp.longitudeBalanced + '\', \'' + temp.altitudeBalanced + '\', \'' + temp.speedBalanced
+    + '\', \'' + temp.latitudeLowPow  + '\', \'' + temp.longitudeLowPow + '\', \'' + temp.altitudeLowPow + '\', \'' + temp.speedLowPow
+    + '\', \'' + temp.latitudeNoPow  + '\', \'' + temp.longitudeNoPow + '\', \'' + temp.altitudeNoPow + '\', \'' + temp.speedNoPow + '\', \'' + temp.session_id + '\')';
     console.log(sql);
   db.pool.getConnection(function (err, con) {
     if (err) return res.status(400).send("Databse Error");
