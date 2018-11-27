@@ -65,7 +65,7 @@ router.post('/', function (req, res) {
     if(!temp.hasOwnProperty('altitudeNoPow'))  temp['altitudeNoPow'] = 0;
     if(!temp.hasOwnProperty('speedNoPow')) temp['speedNoPow'] = 0;
     
-    console.log(temp);
+ 
 
   var sql = 'INSERT INTO netzwerklokalisierung (id, timestamp, latitudeGPS, longitudeGPS, altitudeGPS, speedGPS,' 
     +'latitudeNetwork, longitudeNetwork, altitudeNetwork, speedNetwork,'
@@ -79,6 +79,7 @@ router.post('/', function (req, res) {
     + temp.latitudeBalanced  + '\', \'' + temp.longitudeBalanced + '\', \'' + temp.altitudeBalanced + '\', \'' + temp.speedBalanced
     + temp.latitudeLowPow  + '\', \'' + temp.longitudeLowPow + '\', \'' + temp.altitudeLowPow + '\', \'' + temp.speedLowPow
     + temp.latitudeNoPow  + '\', \'' + temp.longitudeNoPow + '\', \'' + temp.altitudeNoPow + '\', \'' + temp.speedNoPow + '\', \'' + temp.session_id + '\')';
+    console.log(sql);
   db.pool.getConnection(function (err, con) {
     if (err) return res.status(400).send("Databse Error");
     else
