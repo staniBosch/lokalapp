@@ -35,41 +35,36 @@ router.post('/', function (req, res) {
   else
     temp = req.body;
 
-    if(!temp.hasOwnProperty('latitudeGPS')){
-      temp['latitudeGPS'] = 0;
-      temp['latitudeGPS'] = 0;
-      temp['latitudeGPS'] = 0;
-    }
-    if(!temp.hasOwnProperty('latitudeNetwork')){
-      temp['latitudeNetwork'] = 0;
-      temp['longitudeNetwork'] = 0;
-      temp['altitudeNetwork'] = 0;
-      temp['speedNetwork'] = 0;
-    }
-    if(!temp.hasOwnProperty('latitudeHighAcc')){
-      temp['latitudeHighAcc'] = 0;
-      temp['longitudeHighAcc'] = 0;
-      temp['altitudeHighAcc'] = 0;
-      temp['speedHighAcc'] = 0;
-    }
-    if(!temp.hasOwnProperty('latitudeBalanced')){
-      temp['latitudeBalanced'] = 0;
-      temp['longitudeBalanced'] = 0;
-      temp['altitudeBalanced'] = 0;
-      temp['speedBalanced'] = 0;
-    }
-    if(!temp.hasOwnProperty('latitudeLowPow')){
-      temp['latitudeLowPow'] = 0;
-      temp['longitudeLowPow'] = 0;
-      temp['altitudeLowPow'] = 0;
-      temp['speedLowPow'] = 0;
-    }
-    if(!temp.hasOwnProperty('latitudeNoPow')){
-      temp['latitudeNoPow'] = 0;
-      temp['longitudeNoPow'] = 0;
-      temp['altitudeNoPow'] = 0;
-      temp['speedNoPow'] = 0;
-    }
+    if(!temp.hasOwnProperty('latitudeGPS')) temp['latitudeGPS'] = 0;
+    if(!temp.hasOwnProperty('longitudeGPS')) temp['longitudeGPS'] = 0;
+    if(!temp.hasOwnProperty('altitudeGPS')) temp['altitudeGPS'] = 0;
+    if(!temp.hasOwnProperty('speedGPS')) temp['speedGPS'] = 0;
+    
+    if(!temp.hasOwnProperty('latitudeNetwork')) temp['latitudeNetwork'] = 0;
+    if(!temp.hasOwnProperty('longitudeNetwork')) temp['longitudeNetwork'] = 0;
+    if(!temp.hasOwnProperty('altitudeNetwork')) temp['altitudeNetwork'] = 0;
+    if(!temp.hasOwnProperty('speedNetwork')) temp['speedNetwork'] = 0;
+    
+    if(!temp.hasOwnProperty('latitudeHighAcc')) temp['latitudeHighAcc'] = 0;
+    if(!temp.hasOwnProperty('longitudeHighAcc')) temp['longitudeHighAcc'] = 0;
+    if(!temp.hasOwnProperty('altitudeHighAcc')) temp['altitudeHighAcc'] = 0;
+    if(!temp.hasOwnProperty('speedHighAcc')) temp['speedHighAcc'] = 0;
+    
+    if(!temp.hasOwnProperty('latitudeBalanced')) temp['latitudeBalanced'] = 0;
+    if(!temp.hasOwnProperty('longitudeBalanced')) temp['longitudeBalanced'] = 0;
+    if(!temp.hasOwnProperty('altitudeBalanced')) temp['altitudeBalanced'] = 0;
+    if(!temp.hasOwnProperty('speedBalanced')) temp['speedBalanced'] = 0;
+    
+    if(!temp.hasOwnProperty('latitudeLowPow')) temp['latitudeLowPow'] = 0;
+    if(!temp.hasOwnProperty('longitudeLowPow'))  temp['longitudeLowPow'] = 0;
+    if(!temp.hasOwnProperty('altitudeLowPow'))   temp['altitudeLowPow'] = 0;
+    if(!temp.hasOwnProperty('speedLowPow'))  temp['speedLowPow'] = 0;
+    
+    if(!temp.hasOwnProperty('latitudeNoPow')) temp['latitudeNoPow'] = 0;
+    if(!temp.hasOwnProperty('longitudeNoPow')) temp['longitudeNoPow'] = 0;
+    if(!temp.hasOwnProperty('altitudeNoPow'))  temp['altitudeNoPow'] = 0;
+    if(!temp.hasOwnProperty('speedNoPow')) temp['speedNoPow'] = 0;
+    
     console.log(temp);
 
   var sql = 'INSERT INTO netzwerklokalisierung (id, timestamp, latitudeGPS, longitudeGPS, altitudeGPS, speedGPS,' 
