@@ -35,51 +35,49 @@ router.post('/', function (req, res) {
   else
     temp = req.body;
 
-    if(!temp.hasOwnProperty('latitudeGPS')) temp['latitudeGPS'] = 0;
-    if(!temp.hasOwnProperty('longitudeGPS')) temp['longitudeGPS'] = 0;
-    if(!temp.hasOwnProperty('altitudeGPS')) temp['altitudeGPS'] = 0;
-    if(!temp.hasOwnProperty('speedGPS')) temp['speedGPS'] = 0;
-    
-    if(!temp.hasOwnProperty('latitudeNetwork')) temp['latitudeNetwork'] = 0;
-    if(!temp.hasOwnProperty('longitudeNetwork')) temp['longitudeNetwork'] = 0;
-    if(!temp.hasOwnProperty('altitudeNetwork')) temp['altitudeNetwork'] = 0;
-    if(!temp.hasOwnProperty('speedNetwork')) temp['speedNetwork'] = 0;
-    
-    if(!temp.hasOwnProperty('latitudeHighAcc')) temp['latitudeHighAcc'] = 0;
-    if(!temp.hasOwnProperty('longitudeHighAcc')) temp['longitudeHighAcc'] = 0;
-    if(!temp.hasOwnProperty('altitudeHighAcc')) temp['altitudeHighAcc'] = 0;
-    if(!temp.hasOwnProperty('speedHighAcc')) temp['speedHighAcc'] = 0;
-    
-    if(!temp.hasOwnProperty('latitudeBalanced')) temp['latitudeBalanced'] = 0;
-    if(!temp.hasOwnProperty('longitudeBalanced')) temp['longitudeBalanced'] = 0;
-    if(!temp.hasOwnProperty('altitudeBalanced')) temp['altitudeBalanced'] = 0;
-    if(!temp.hasOwnProperty('speedBalanced')) temp['speedBalanced'] = 0;
-    
-    if(!temp.hasOwnProperty('latitudeLowPow')) temp['latitudeLowPow'] = 0;
-    if(!temp.hasOwnProperty('longitudeLowPow'))  temp['longitudeLowPow'] = 0;
-    if(!temp.hasOwnProperty('altitudeLowPow'))   temp['altitudeLowPow'] = 0;
-    if(!temp.hasOwnProperty('speedLowPow'))  temp['speedLowPow'] = 0;
-    
-    if(!temp.hasOwnProperty('latitudeNoPow')) temp['latitudeNoPow'] = 0;
-    if(!temp.hasOwnProperty('longitudeNoPow')) temp['longitudeNoPow'] = 0;
-    if(!temp.hasOwnProperty('altitudeNoPow'))  temp['altitudeNoPow'] = 0;
-    if(!temp.hasOwnProperty('speedNoPow')) temp['speedNoPow'] = 0;
-    
- 
+  if (!temp.hasOwnProperty('latitudeGPS')) temp['latitudeGPS'] = 0;
+  if (!temp.hasOwnProperty('longitudeGPS')) temp['longitudeGPS'] = 0;
+  if (!temp.hasOwnProperty('altitudeGPS')) temp['altitudeGPS'] = 0;
+  if (!temp.hasOwnProperty('speedGPS')) temp['speedGPS'] = 0;
 
-  var sql = 'INSERT INTO netzwerklokalisierung (id, timestamp, latitudeGPS, longitudeGPS, altitudeGPS, speedGPS,' 
-    +'latitudeNetwork, longitudeNetwork, altitudeNetwork, speedNetwork,'
-    +'latitudeHighAcc, longitudeHighAcc, altitudeHighAcc, speedHighAcc,'
-    +'latitudeBalanced, longitudeBalanced, altitudeBalanced, speedBalanced,' 
-    +'latitudeLowPow, longitudeLowPow, altitudeLowPow, speedLowPow,' 
-    +'latitudeNoPow, longitudeNoPow, altitudeNoPow, speedNoPow, session_id )'
-    +' VALUES (NULL, CURRENT_TIMESTAMP, \'' + temp.latitudeGPS  + '\', \'' + temp.longitudeGPS + '\', \'' + temp.altitudeGPS + '\', \'' + temp.speedGPS 
-    + '\', \'' + temp.latitudeNetwork  + '\', \'' + temp.longitudeNetwork + '\', \'' + temp.altitudeNetwork + '\', \'' + temp.speedNetwork
-    + '\', \'' + temp.latitudeHighAcc  + '\', \'' + temp.longitudeHighAcc + '\', \'' + temp.altitudeHighAcc + '\', \'' + temp.speedHighAcc
-    + '\', \'' + temp.latitudeBalanced  + '\', \'' + temp.longitudeBalanced + '\', \'' + temp.altitudeBalanced + '\', \'' + temp.speedBalanced
-    + '\', \'' + temp.latitudeLowPow  + '\', \'' + temp.longitudeLowPow + '\', \'' + temp.altitudeLowPow + '\', \'' + temp.speedLowPow
-    + '\', \'' + temp.latitudeNoPow  + '\', \'' + temp.longitudeNoPow + '\', \'' + temp.altitudeNoPow + '\', \'' + temp.speedNoPow + '\', \'' + temp.session_id + '\')';
-    console.log(sql);
+  if (!temp.hasOwnProperty('latitudeNetwork')) temp['latitudeNetwork'] = 0;
+  if (!temp.hasOwnProperty('longitudeNetwork')) temp['longitudeNetwork'] = 0;
+  if (!temp.hasOwnProperty('altitudeNetwork')) temp['altitudeNetwork'] = 0;
+  if (!temp.hasOwnProperty('speedNetwork')) temp['speedNetwork'] = 0;
+
+  if (!temp.hasOwnProperty('latitudeHighAcc')) temp['latitudeHighAcc'] = 0;
+  if (!temp.hasOwnProperty('longitudeHighAcc')) temp['longitudeHighAcc'] = 0;
+  if (!temp.hasOwnProperty('altitudeHighAcc')) temp['altitudeHighAcc'] = 0;
+  if (!temp.hasOwnProperty('speedHighAcc')) temp['speedHighAcc'] = 0;
+
+  if (!temp.hasOwnProperty('latitudeBalanced')) temp['latitudeBalanced'] = 0;
+  if (!temp.hasOwnProperty('longitudeBalanced')) temp['longitudeBalanced'] = 0;
+  if (!temp.hasOwnProperty('altitudeBalanced')) temp['altitudeBalanced'] = 0;
+  if (!temp.hasOwnProperty('speedBalanced')) temp['speedBalanced'] = 0;
+
+  if (!temp.hasOwnProperty('latitudeLowPow')) temp['latitudeLowPow'] = 0;
+  if (!temp.hasOwnProperty('longitudeLowPow')) temp['longitudeLowPow'] = 0;
+  if (!temp.hasOwnProperty('altitudeLowPow')) temp['altitudeLowPow'] = 0;
+  if (!temp.hasOwnProperty('speedLowPow')) temp['speedLowPow'] = 0;
+
+  if (!temp.hasOwnProperty('latitudeNoPow')) temp['latitudeNoPow'] = 0;
+  if (!temp.hasOwnProperty('longitudeNoPow')) temp['longitudeNoPow'] = 0;
+  if (!temp.hasOwnProperty('altitudeNoPow')) temp['altitudeNoPow'] = 0;
+  if (!temp.hasOwnProperty('speedNoPow')) temp['speedNoPow'] = 0;
+
+  var sql = 'INSERT INTO netzwerklokalisierung (id, timestamp, latitudeGPS, longitudeGPS, altitudeGPS, speedGPS,'
+    + 'latitudeNetwork, longitudeNetwork, altitudeNetwork, speedNetwork,'
+    + 'latitudeHighAcc, longitudeHighAcc, altitudeHighAcc, speedHighAcc,'
+    + 'latitudeBalanced, longitudeBalanced, altitudeBalanced, speedBalanced,'
+    + 'latitudeLowPow, longitudeLowPow, altitudeLowPow, speedLowPow,'
+    + 'latitudeNoPow, longitudeNoPow, altitudeNoPow, speedNoPow, session_id )'
+    + ' VALUES (NULL, CURRENT_TIMESTAMP, \'' + temp.latitudeGPS + '\', \'' + temp.longitudeGPS + '\', \'' + temp.altitudeGPS + '\', \'' + temp.speedGPS
+    + '\', \'' + temp.latitudeNetwork + '\', \'' + temp.longitudeNetwork + '\', \'' + temp.altitudeNetwork + '\', \'' + temp.speedNetwork
+    + '\', \'' + temp.latitudeHighAcc + '\', \'' + temp.longitudeHighAcc + '\', \'' + temp.altitudeHighAcc + '\', \'' + temp.speedHighAcc
+    + '\', \'' + temp.latitudeBalanced + '\', \'' + temp.longitudeBalanced + '\', \'' + temp.altitudeBalanced + '\', \'' + temp.speedBalanced
+    + '\', \'' + temp.latitudeLowPow + '\', \'' + temp.longitudeLowPow + '\', \'' + temp.altitudeLowPow + '\', \'' + temp.speedLowPow
+    + '\', \'' + temp.latitudeNoPow + '\', \'' + temp.longitudeNoPow + '\', \'' + temp.altitudeNoPow + '\', \'' + temp.speedNoPow + '\', \'' + temp.session_id + '\')';
+
   db.pool.getConnection(function (err, con) {
     if (err) return res.status(400).send("Databse Error");
     else
