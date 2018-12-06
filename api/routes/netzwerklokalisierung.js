@@ -34,7 +34,8 @@ router.post('/', function (req, res) {
     temp = req.body[0];
   else
     temp = req.body;
-
+  console.log("Date from Rest Api:"+Date.now+"  Date from Android App:"+ temp.timestamp);
+  if (!temp.hasOwnProperty('timestamp')) temp['timestamp'] = Date.now();
   if (!temp.hasOwnProperty('latitudeGPS')) temp['latitudeGPS'] = 0;
   if (!temp.hasOwnProperty('longitudeGPS')) temp['longitudeGPS'] = 0;
   if (!temp.hasOwnProperty('altitudeGPS')) temp['altitudeGPS'] = 0;
@@ -71,18 +72,18 @@ router.post('/', function (req, res) {
   if (!temp.hasOwnProperty('speedNoPow')) temp['speedNoPow'] = 0;
   if (!temp.hasOwnProperty('accuracyNoPow')) temp['accuracyNoPow'] = 0;
 
-  var sql = 'INSERT INTO netzwerklokalisierung (id, timestamp, latitudeGPS, longitudeGPS, altitudeGPS, speedGPS, accuracyGPS,'
-    + 'latitudeNetwork, longitudeNetwork, altitudeNetwork, speedNetwork, accuracyNetwork,'
-    + 'latitudeHighAcc, longitudeHighAcc, altitudeHighAcc, speedHighAcc, accuracyHighAcc,'
-    + 'latitudeBalanced, longitudeBalanced, altitudeBalanced, speedBalanced, accuracyBalanced,'
-    + 'latitudeLowPow, longitudeLowPow, altitudeLowPow, speedLowPow, accuracyLowPow,'
-    + 'latitudeNoPow, longitudeNoPow, altitudeNoPow, speedNoPow, accuracyNoPow, session_id )'
-    + ' VALUES (NULL, CURRENT_TIMESTAMP, \'' + temp.latitudeGPS + '\', \'' + temp.longitudeGPS + '\', \'' + temp.altitudeGPS + '\', \'' + temp.speedGPS + '\', \'' + temp.accuracyGPS
-    + '\', \'' + temp.latitudeNetwork + '\', \'' + temp.longitudeNetwork + '\', \'' + temp.altitudeNetwork + '\', \'' + temp.speedNetwork + '\', \'' + temp.accuracyNetwork
-    + '\', \'' + temp.latitudeHighAcc + '\', \'' + temp.longitudeHighAcc + '\', \'' + temp.altitudeHighAcc + '\', \'' + temp.speedHighAcc + '\', \'' + temp.accuracyHighAcc
-    + '\', \'' + temp.latitudeBalanced + '\', \'' + temp.longitudeBalanced + '\', \'' + temp.altitudeBalanced + '\', \'' + temp.speedBalanced + '\', \'' + temp.accuracyBalanced
-    + '\', \'' + temp.latitudeLowPow + '\', \'' + temp.longitudeLowPow + '\', \'' + temp.altitudeLowPow + '\', \'' + temp.speedLowPow + '\', \'' + temp.accuracyLowPow
-    + '\', \'' + temp.latitudeNoPow + '\', \'' + temp.longitudeNoPow + '\', \'' + temp.altitudeNoPow + '\', \'' + temp.speedNoPow + '\', \'' + temp.accuracyNoPow + '\', \'' + temp.session_id + '\')';
+  var sql = "INSERT INTO netzwerklokalisierung (id, timestamp, latitudeGPS, longitudeGPS, altitudeGPS, speedGPS, accuracyGPS,"
+    + "latitudeNetwork, longitudeNetwork, altitudeNetwork, speedNetwork, accuracyNetwork,"
+    + "latitudeHighAcc, longitudeHighAcc, altitudeHighAcc, speedHighAcc, accuracyHighAcc,"
+    + "latitudeBalanced, longitudeBalanced, altitudeBalanced, speedBalanced, accuracyBalanced,"
+    + "latitudeLowPow, longitudeLowPow, altitudeLowPow, speedLowPow, accuracyLowPow,"
+    + "latitudeNoPow, longitudeNoPow, altitudeNoPow, speedNoPow, accuracyNoPow, session_id )"
+    + " VALUES (NULL, '"+temp.timestamp+"','"+ temp.latitudeGPS +"','"+ temp.longitudeGPS +"','"+temp.altitudeGPS+"','"+temp.speedGPS+"','"+temp.accuracyGPS
+    + "','"+temp.latitudeNetwork+"','"+temp.longitudeNetwork+"','"+temp.altitudeNetwork+"','"+temp.speedNetwork+"','"+temp.accuracyNetwork
+    + "','"+temp.latitudeHighAcc+"','"+temp.longitudeHighAcc+"','"+temp.altitudeHighAcc+"','"+temp.speedHighAcc+"','"+temp.accuracyHighAcc
+    + "','"+temp.latitudeBalanced+"','"+temp.longitudeBalanced+"','" + temp.altitudeBalanced+"','"+temp.speedBalanced+"','"+temp.accuracyBalanced
+    + "','"+temp.latitudeLowPow+"','"+temp.longitudeLowPow+"','"+ temp.altitudeLowPow +"','"+ temp.speedLowPow+"','"+temp.accuracyLowPow
+    + "','"+temp.latitudeNoPow+"','"+temp.longitudeNoPow+"','"+temp.altitudeNoPow +"','"+ temp.speedNoPow+"','"+temp.accuracyNoPow+"','" + temp.session_id+"')";
 
   db.pool.getConnection(function (err, con) {
     if (err) return res.status(400).send("Databse Error");

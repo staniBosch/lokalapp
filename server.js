@@ -34,6 +34,7 @@ const schwerkraftRouter = require('./api/routes/schwerkraft');
 const umgebungsluftdruckRouter = require('./api/routes/umgebungsluftdruck');
 const umgebungstemperaturRouter = require('./api/routes/umgebungstemperatur');
 const wifiRouter = require('./api/routes/wifi');
+const waypointRouter = require('./api/routes/waypoint');
 
 // APP-Instance
 const app = express();
@@ -67,6 +68,7 @@ app.use('/api/schwerkraft', schwerkraftRouter);
 app.use('/api/umgebungsluftdruck', umgebungsluftdruckRouter);
 app.use('/api/umgebungstemperatur', umgebungstemperaturRouter);
 app.use('/api/wifi', wifiRouter);
+app.use('/api/waypoint', waypointRouter);
 
 
 // Get port from environment and store in Express.
