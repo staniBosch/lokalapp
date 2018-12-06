@@ -140,7 +140,7 @@ router.get('/api', function (req, res) {
 
 router.get('/download', function (req, res) {
 
-  var file = __dirname + '/public/download/app-release.apk';
+  var file = __dirname + '/public/download/app-debug.apk';
   res.download(file); // Set disposition and send it.
 
 });
