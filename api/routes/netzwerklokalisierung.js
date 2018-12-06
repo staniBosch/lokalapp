@@ -34,8 +34,8 @@ router.post('/', function (req, res) {
     temp = req.body[0];
   else
     temp = req.body;
-  console.log("Date from Rest Api:"+Date.now+"  Date from Android App:"+ temp.timestamp);
-  
+  console.log("Date from Rest Api:"+Date.now()+"  Date from Android App:"+ temp.timestamp);
+
   if (!temp.hasOwnProperty('timestamp')) temp['timestamp'] = Date.now();
   if (!temp.hasOwnProperty('latitudeGPS')) temp['latitudeGPS'] = 0;
   if (!temp.hasOwnProperty('longitudeGPS')) temp['longitudeGPS'] = 0;
