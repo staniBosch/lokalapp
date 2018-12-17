@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../models/database');
-
+const xmlparser = require('express-xml-bodyparser');
+const kmlCreator = require("../service/KMLCreator.js");
 
 
 // GET /api/waypoint
@@ -50,6 +51,22 @@ router.post('/', function (req, res) {
         con.release();
       });
   });
+});
+
+router.get('/kml', xmlparser({trim: false, explicitArray: false}), function(req, res, next) {
+  // check req.body  
+  
+  db.pool.getConnection(function (err, con) {
+      if (err) return res.status(400).send("Databse Error");
+      else
+        con.query("SELECT * FROM waypoint", function (err, result, fields) {
+          if (err) res.status(400).send(err.code);
+          else res.status(200).send(kmlCreator.createKML(result));
+          res.end();
+          con.release();
+        });
+    });
+
 });
 
 module.exports = router;

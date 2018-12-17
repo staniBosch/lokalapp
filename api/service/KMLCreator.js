@@ -1,8 +1,4 @@
-export class KMLCreator {
-
-    constructor() {
-    }
-
+module.exports = {
     createKML(data) {
 
         var kml = this.createHead();
@@ -11,11 +7,10 @@ export class KMLCreator {
             var place = folder.ele('Placemark');
             place.ele('name', data[i]["id"]+" "+"Deutschland");
             place.ele('description', "UNIX-Timestamp[ms]:"+data[i]["timestamp"]);
-            place.ele('Point').ele('coordinates', data[i]["longitude" + sensor_type[j]] + ',' + data[i]["latitude" + sensor_type[j]]);            
+            place.ele('Point').ele('coordinates', data[i]["longitude"] + ',' + data[i]["latitude"]);            
         }
         return kml.end({ pretty: true });
-    }
-
+    },
     createHead() {
         var builder = require('xmlbuilder');
         var xml = builder.create('kml', { version: '1.0', encoding: 'UTF-8' })

@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../models/database');
-
+const xmlparser = require('express-xml-bodyparser');
+const kmlCreator = require("../service/KMLCreator.js");
 
 // GET /api/lokalisierung/
 router.get('/', function (req, res, next) {
@@ -62,7 +63,7 @@ router.post('/', function (req, res) {
 // Delete /api/gps/clear
 router.delete('/clear', function (req, res) {
 
-    var sql = 'DELETE FROM gps';
+    var sql = 'DELETE FROM lokalisierung';
 
     db.pool.getConnection(function (err, con) {
         if (err) return res.status(400).send("Database Error");
@@ -71,12 +72,28 @@ router.delete('/clear', function (req, res) {
                 if (err) throw err;
                 else {
                     console.log("Data was deleted");
-                    res.send('Got a DELETE request at gps');
+                    res.send('Got a DELETE request at lokalisierung');
                 }
                 res.end();
                 con.release();
             });
     });
 });
+
+router.get('/kml', xmlparser({trim: false, explicitArray: false}), function(req, res, next) {
+    // check req.body  
+    
+    db.pool.getConnection(function (err, con) {
+        if (err) return res.status(400).send("Databse Error");
+        else
+          con.query("SELECT * FROM lokalisierung", function (err, result, fields) {
+            if (err) res.status(400).send(err.code);
+            else res.status(200).send(kmlCreator.createKML(result));
+            res.end();
+            con.release();
+          });
+      });
+
+  });
 
 module.exports = router;

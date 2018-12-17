@@ -1,8 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../models/database');
-import { KMLCreator } from "../service/KMLCreator.js"
-const kmlCreator = new KMLCreator();
+const xmlparser = require('express-xml-bodyparser');
+const kmlCreator = require("../service/KMLCreator.js");
+
 
 // GET /api/messwerteroute
 router.get('/', function (req, res, next) {
