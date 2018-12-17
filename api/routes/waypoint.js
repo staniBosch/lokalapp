@@ -23,26 +23,6 @@ router.get('/', function (req, res, next) {
   });
 });
 
-// GET /api/waypoint/:id/:sensor
-router.get('/id/:id/:sensor', function (req, res, next) {
-
-  /* TODO:
-   * get all waypoint-data from the database
-   */
-  var sensor = req.params.sensor;
-  var id = req.params.id;
-  var sql = "SELECT * FROM waypoint inner join " + sensor + " on session.id=" + sensor + ".session_id where session.id=" + id;
-  db.pool.getConnection(function (err, con) {
-    if (err) return res.status(400).send("Databse Error");
-    else
-      con.query(sql, function (err, result, fields) {
-        if (err) res.status(400).send(err.code);
-        else res.status(200).send(result);
-        res.end();
-        con.release();
-      });
-  });
-});
 
 // POST /api/waypoint/
 router.post('/', function (req, res) {
@@ -50,7 +30,13 @@ router.post('/', function (req, res) {
   /* TODO:
    * create an waypoint-value and add to the database
    */
-  var sql = "INSERT INTO waypoint (id, timestamp, latitude, longitude, altitude, indoor, session_id) VALUES (NULL, '"+req.body.timestamp+"', '" + req.body.latitude + "', '" + req.body.longitude + "', '" + req.body.altitude + "', '" + req.body.indoor + "', '" + req.body.session_id + "')";
+  var sql = "INSERT INTO waypoint (id, timestamp, latitude, longitude, altitude, indoor, route_name) VALUES (NULL, '"
+  + req.body.timestamp+"', '" 
+  + req.body.latitude + "', '" 
+  + req.body.longitude + "', '" 
+  + req.body.altitude + "', '" 
+  + req.body.indoor + "', '" 
+  + req.body.route_name + "')";
   db.pool.getConnection(function (err, con) {
     if (err) return res.status(400).send("Databse Error");
     else
