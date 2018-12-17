@@ -1,91 +1,97 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../models/database');
-const xmlparser = require('express-xml-bodyparser');
 const kmlCreator = require("../service/KMLCreator.js");
+var fs = require('fs');
 
 
 // GET /api/messwerteroute
 router.get('/', function (req, res, next) {
 
-  /* TODO:
-   * get all messwerteroute-data from the database
-   */  
-  db.pool.getConnection(function (err, con) {
-    if (err) return res.status(400).send("Databse Error");
-    else
-      con.query("SELECT * FROM messwerteroute", function (err, result, fields) {
-        if (err) res.status(400).send(err.code);
-        else res.status(200).send(result);
-        res.end();
-        con.release();
-      });
-  });
+    /* TODO:
+     * get all messwerteroute-data from the database
+     */
+    db.pool.getConnection(function (err, con) {
+        if (err) return res.status(400).send("Databse Error");
+        else
+            con.query("SELECT * FROM messwerteroute", function (err, result, fields) {
+                if (err) res.status(400).send(err.code);
+                else res.status(200).send(result);
+                res.end();
+                con.release();
+            });
+    });
 });
 
 // GET /api/messwerteroute/:id/:sensor
 router.get('/id/:id/:sensor', function (req, res, next) {
 
-  /* TODO:
-   * get all messwerteroute-data from the database
-   */
-  var sensor = req.params.sensor;
-  var id = req.params.id;
-  var sql = "SELECT * FROM messwerteroute inner join " + sensor + " on session.id=" + sensor + ".session_id where session.id=" + id;
-  db.pool.getConnection(function (err, con) {
-    if (err) return res.status(400).send("Databse Error");
-    else
-      con.query(sql, function (err, result, fields) {
-        if (err) res.status(400).send(err.code);
-        else res.status(200).send(result);
-        res.end();
-        con.release();
-      });
-  });
+    /* TODO:
+     * get all messwerteroute-data from the database
+     */
+    var sensor = req.params.sensor;
+    var id = req.params.id;
+    var sql = "SELECT * FROM messwerteroute inner join " + sensor + " on session.id=" + sensor + ".session_id where session.id=" + id;
+    db.pool.getConnection(function (err, con) {
+        if (err) return res.status(400).send("Databse Error");
+        else
+            con.query(sql, function (err, result, fields) {
+                if (err) res.status(400).send(err.code);
+                else res.status(200).send(result);
+                res.end();
+                con.release();
+            });
+    });
 });
 
 // POST /api/messwerteroute/
 router.post('/', function (req, res) {
 
-  /* TODO:
-   * create an messwerteroute-value and add to the database
-   */
-  var sql = "INSERT INTO messwerteroute (id, timestamp, latitude, longitude, altitude, indoor, session_id) VALUES (NULL, '"
-  + req.body.timestamp +"', '" 
-  + req.body.latitude + "', '" 
-  + req.body.longitude + "', '" 
-  + req.body.altitude + "', '" 
-  + req.body.indoor + "', '" 
-  + req.body.session_id + "')";
-  db.pool.getConnection(function (err, con) {
-    if (err) return res.status(400).send("Databse Error");
-    else
-      con.query(sql, function (err, result) {
-        if (err) res.status(400).send(err.code);
-        else {
-          console.log("Data created and added");
-          res.send(req.body);
-        }
-        res.end();
-        con.release();
-      });
-  });
-});
-
-router.get('/kml', xmlparser({trim: false, explicitArray: false}), function(req, res, next) {
-    // check req.body  
-    
+    /* TODO:
+     * create an messwerteroute-value and add to the database
+     */
+    var sql = "INSERT INTO messwerteroute (id, timestamp, latitude, longitude, altitude, indoor, session_id) VALUES (NULL, '"
+        + req.body.timestamp + "', '"
+        + req.body.latitude + "', '"
+        + req.body.longitude + "', '"
+        + req.body.altitude + "', '"
+        + req.body.indoor + "', '"
+        + req.body.session_id + "')";
     db.pool.getConnection(function (err, con) {
         if (err) return res.status(400).send("Databse Error");
         else
-          con.query("SELECT * FROM messwerteroute", function (err, result, fields) {
-            if (err) res.status(400).send(err.code);
-            else res.status(200).send(kmlCreator.createKML(result));
-            res.end();
-            con.release();
-          });
-      });
+            con.query(sql, function (err, result) {
+                if (err) res.status(400).send(err.code);
+                else {
+                    console.log("Data created and added");
+                    res.send(req.body);
+                }
+                res.end();
+                con.release();
+            });
+    });
+});
 
-  });
+
+router.get('/kml', function (req, res, next) {     
+
+    db.pool.getConnection(function (err, con) {
+        var fileName = "/../../public/tmp.kml";
+        var savedFilePath = __dirname + fileName;
+        if (err) return res.status(400).send("Databse Error");
+        else
+            con.query("SELECT * FROM messwerteroute", function (err, result, fields) {
+                if (err) res.status(400).send(err.code);
+                else {
+                    var fileContents = kmlCreator.createKML(result);
+                    fs.writeFile(savedFilePath, fileContents, function (err) {
+                        if (err) console.log(err);
+                        res.status(200).download(savedFilePath, "messwerteroute.kml");
+                    });                    
+                }
+                con.release();
+            });
+    });
+});
 
 module.exports = router;

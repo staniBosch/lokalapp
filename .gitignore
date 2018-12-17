@@ -67,3 +67,4 @@ npm-debug.log
 
 /.project
 api/models/database.js
+public/tmp.kml

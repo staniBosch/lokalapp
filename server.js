@@ -8,14 +8,14 @@ const http = require('http');
 const https = require('https');
 const cors = require('cors');
 const fs = require('fs');
-//const hostaddr = "http://sbcon.ddns.net:3000/";
-//const privateKey = fs.readFileSync('/etc/letsencrypt/live/sbcon.ddns.net/privkey.pem', 'utf8');
-//const certificate = fs.readFileSync('/etc/letsencrypt/live/sbcon.ddns.net/cert.pem', 'utf8');
-//const ca = fs.readFileSync('/etc/letsencrypt/live/sbcon.ddns.net/chain.pem', 'utf8');
+const hostaddr = "http://sbcon.ddns.net:3000/";
+const privateKey = fs.readFileSync('/etc/letsencrypt/live/sbcon.ddns.net/privkey.pem', 'utf8');
+const certificate = fs.readFileSync('/etc/letsencrypt/live/sbcon.ddns.net/cert.pem', 'utf8');
+const ca = fs.readFileSync('/etc/letsencrypt/live/sbcon.ddns.net/chain.pem', 'utf8');
 
-//var credentials = {key: privateKey, cert: certificate, ca: ca};
+var credentials = {key: privateKey, cert: certificate, ca: ca};
 
-const hostaddr = "http://localhost:3000/";
+//const hostaddr = "http://localhost:3000/";
 
 // Require REST-Routes
 const sessionRouter = require('./api/routes/session');
@@ -51,6 +51,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.use(xmlparser());
+
 app.use(cookieParser());
 app.use(cors());
 
@@ -80,22 +82,22 @@ app.use('/api/waypoint', waypointRouter);
 
 // Get port from environment and store in Express.
 const port = normalizePort(process.env.PORT || '3000');
-//const sshport = normalizePort(process.env.PORT || '3443');
+const sshport = normalizePort(process.env.PORT || '3443');
 
-//app.set('port', sshport);
+app.set('port', sshport);
 
 // Create HTTP and https server.
 const server = http.createServer(app);
-//const sshserver = https.createServer(credentials, app);
+const sshserver = https.createServer(credentials, app);
 
 // Listen on provided port, on all network interfaces.
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
-//sshserver.listen(sshport);
-//sshserver.on('error', onError);
-//sshserver.on('listening', onListening);
+sshserver.listen(sshport);
+sshserver.on('error', onError);
+sshserver.on('listening', onListening);
 
 // Normalize a port into a number, string, or false.
 function normalizePort(val) {

@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../models/database');
-const xmlparser = require('express-xml-bodyparser');
 const kmlCreator = require("../service/KMLCreator.js");
+var fs = require('fs');
 
 // GET /api/lokalisierung/
 router.get('/', function (req, res, next) {
@@ -80,20 +80,25 @@ router.delete('/clear', function (req, res) {
     });
 });
 
-router.get('/kml', xmlparser({trim: false, explicitArray: false}), function(req, res, next) {
-    // check req.body  
-    
+router.get('/kml', function (req, res, next) {     
+
     db.pool.getConnection(function (err, con) {
+        var fileName = "/../../public/tmp.kml";
+        var savedFilePath = __dirname + fileName;
         if (err) return res.status(400).send("Databse Error");
         else
-          con.query("SELECT * FROM lokalisierung", function (err, result, fields) {
-            if (err) res.status(400).send(err.code);
-            else res.status(200).send(kmlCreator.createKML(result));
-            res.end();
-            con.release();
-          });
-      });
-
-  });
+            con.query("SELECT * FROM lokalisierung", function (err, result, fields) {
+                if (err) res.status(400).send(err.code);
+                else {
+                    var fileContents = kmlCreator.createKML(result);
+                    fs.writeFile(savedFilePath, fileContents, function (err) {
+                        if (err) console.log(err);
+                        res.status(200).download(savedFilePath, "lokalisierung.kml");
+                    });                    
+                }
+                con.release();
+            });
+    });
+});
 
 module.exports = router;
