@@ -23,6 +23,7 @@ router.get('/', function (req, res, next) {
   });
 });
 
+
 // GET /api/route/:name/waypoint
 router.get('/:name/waypoints', function (req, res, next) {
 
