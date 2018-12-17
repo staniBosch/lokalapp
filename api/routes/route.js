@@ -9,8 +9,7 @@ router.get('/', function (req, res, next) {
 
   /* TODO:
    * get all route-data from the database
-   */
-  console.log("Data created and added");
+   */  
   db.pool.getConnection(function (err, con) {
     if (err) return res.status(400).send("Databse Error");
     else
