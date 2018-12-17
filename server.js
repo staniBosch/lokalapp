@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const xmlparser = require('express-xml-bodyparser');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const debug = require('debug')('web-application:server');

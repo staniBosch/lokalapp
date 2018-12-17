@@ -1,16 +1,15 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../models/database');
-
-
+import { KMLCreator } from "../service/KMLCreator.js"
+const kmlCreator = new KMLCreator();
 
 // GET /api/messwerteroute
 router.get('/', function (req, res, next) {
 
   /* TODO:
    * get all messwerteroute-data from the database
-   */
-  console.log("Data created and added");
+   */  
   db.pool.getConnection(function (err, con) {
     if (err) return res.status(400).send("Databse Error");
     else
@@ -71,5 +70,21 @@ router.post('/', function (req, res) {
       });
   });
 });
+
+router.get('/kml', xmlparser({trim: false, explicitArray: false}), function(req, res, next) {
+    // check req.body  
+    
+    db.pool.getConnection(function (err, con) {
+        if (err) return res.status(400).send("Databse Error");
+        else
+          con.query("SELECT * FROM messwerteroute", function (err, result, fields) {
+            if (err) res.status(400).send(err.code);
+            else res.status(200).send(kmlCreator.createKML(result));
+            res.end();
+            con.release();
+          });
+      });
+
+  });
 
 module.exports = router;
