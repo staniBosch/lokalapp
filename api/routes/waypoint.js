@@ -44,11 +44,11 @@ router.post('/', function (req, res) {
     }
 
     db.pool.getConnection((err, con) => {
-      for (var i = 0; i < sqlarr.length; i++) {
-        var sql = sqlarr[i];
-        console.log("was stimmt hier nicht " + sqlarr);
-        if (err) return res.status(400).send("Databse Error");
+      if (err) return res.status(400).send("Databse Error");
         else
+        for (var i = 0; i < sqlarr.length; i++) {
+          var sql = sqlarr[i];
+          console.log("was stimmt hier nicht " + sqlarr);
           con.query(sql, function (err, result) {
             if (err) res.status(400).send(err.code);
             else {
