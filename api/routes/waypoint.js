@@ -40,13 +40,12 @@ router.post('/', function (req, res) {
       + req.body[i].longitude + "', '"
       + req.body[i].altitude + "', '"
       + req.body[i].indoor + "', '"
-      + req.body[i].route_name + "')");   
-      console.log("first---"+sqlarr[i]);
+      + req.body[i].route_name + "')");
     }
     for(var i = 0; i<sqlarr.length; i++){      
       db.pool.getConnection((err, con) => {
         var sql = sqlarr[i];
-        console.log("was stimmt hier nicht "+sql);
+        console.log("was stimmt hier nicht "+sqlarr);
         if (err) return res.status(400).send("Databse Error");
         else
           con.query(sql, function (err, result) {
