@@ -32,17 +32,20 @@ router.post('/', function (req, res) {
    * create an waypoint-value and add to the database
    */
   if (req.body instanceof Array) {
-    var sql;
+    var sqlarr = [];
     for (var i = 0; i < req.body.length; i++) {  
-      sql = "INSERT INTO waypoint (id, timestamp, latitude, longitude, altitude, indoor, route_name) VALUES (NULL, '"
+      sqlarr.push("INSERT INTO waypoint (id, timestamp, latitude, longitude, altitude, indoor, route_name) VALUES (NULL, '"
       + req.body[i].timestamp + "', '"
       + req.body[i].latitude + "', '"
       + req.body[i].longitude + "', '"
       + req.body[i].altitude + "', '"
       + req.body[i].indoor + "', '"
-      + req.body[i].route_name + "')";   
-      console.log("first---"+sql);      
+      + req.body[i].route_name + "')");   
+      console.log("first---"+sql[i]);
+    }
+    for(var i = 0; i<sql.length; i++){      
       db.pool.getConnection(function (err, con) {
+        var sql = sqlarr[i];
         if (err) return res.status(400).send("Databse Error");
         else
           con.query(sql, function (err, result) {
@@ -54,7 +57,7 @@ router.post('/', function (req, res) {
             con.release();
           });
       }); 
-    } 
+    }       
     res.end();
   }
 
