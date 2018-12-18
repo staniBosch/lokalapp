@@ -31,24 +31,22 @@ router.post('/', function (req, res) {
   /* TODO:
    * create an waypoint-value and add to the database
    */
-  var temp;
   if (req.body instanceof Array) {
-    for (var i = 0; i < req.body.length; i++) {
-      var sql = "INSERT INTO waypoint (id, timestamp, latitude, longitude, altitude, indoor, route_name) VALUES (NULL, '"
-        + req.body[i].timestamp + "', '"
-        + req.body[i].latitude + "', '"
-        + req.body[i].longitude + "', '"
-        + req.body[i].altitude + "', '"
-        + req.body[i].indoor + "', '"
-        + req.body[i].route_name + "')";
+    for (var i = 0; i < req.body.length; i++) {      
       db.pool.getConnection(function (err, con) {
         if (err) return res.status(400).send("Databse Error");
         else
-          con.query(sql, function (err, result) {
+          con.query("INSERT INTO waypoint (id, timestamp, latitude, longitude, altitude, indoor, route_name) VALUES (NULL, '"
+          + req.body[i].timestamp + "', '"
+          + req.body[i].latitude + "', '"
+          + req.body[i].longitude + "', '"
+          + req.body[i].altitude + "', '"
+          + req.body[i].indoor + "', '"
+          + req.body[i].route_name + "')", function (err, result) {
             if (err) res.status(400).send(err.code);
             else {
               console.log("Data created and added as an Array");
-              res.send(req.body+"Array");
+              res.send(req.body);
             }
             res.end();
             con.release();
