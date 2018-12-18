@@ -40,7 +40,9 @@ router.post('/', function (req, res) {
       + req.body[i].longitude + "', '"
       + req.body[i].altitude + "', '"
       + req.body[i].indoor + "', '"
-      + req.body[i].route_name + "')");    
+      + req.body[i].route_name + "')"); 
+    }
+    for(var i = 0; i<sql.length; i++)   
       db.pool.getConnection(function (err, con) {
         if (err) return res.status(400).send("Databse Error");
         else
@@ -53,8 +55,7 @@ router.post('/', function (req, res) {
             res.end();
             con.release();
           });
-      });
-    }
+      });    
   }
 
   else {
