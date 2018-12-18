@@ -1,13 +1,14 @@
 module.exports = {
+
     createKML(data) {
 
         var kml = this.createHead();
         var folder = kml.ele('Folder');
         for (var i = 0; i < data.length; i++) {
             var place = folder.ele('Placemark');
-            place.ele('name', data[i]["id"]+" "+"Deutschland");
-            place.ele('description', "UNIX-Timestamp[ms]:"+data[i]["timestamp"]);
-            place.ele('Point').ele('coordinates', data[i]["longitude"] + ',' + data[i]["latitude"]);            
+            place.ele('name', data[i]["id"] + " " + "Deutschland");
+            place.ele('description', "UNIX-Timestamp[ms]:" + data[i]["timestamp"]);
+            place.ele('Point').ele('coordinates', data[i]["longitude"] + ',' + data[i]["latitude"]);
         }
         return kml.end({ pretty: true });
     },
