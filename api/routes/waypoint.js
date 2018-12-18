@@ -33,31 +33,33 @@ router.post('/', function (req, res) {
    */
   if (req.body instanceof Array) {
     var sqlarr = [];
-    for (var i = 0; i < req.body.length; i++) {  
+    for (var i = 0; i < req.body.length; i++) {
       sqlarr.push("INSERT INTO waypoint (id, timestamp, latitude, longitude, altitude, indoor, route_name) VALUES (NULL, '"
-      + req.body[i].timestamp + "', '"
-      + req.body[i].latitude + "', '"
-      + req.body[i].longitude + "', '"
-      + req.body[i].altitude + "', '"
-      + req.body[i].indoor + "', '"
-      + req.body[i].route_name + "')");
+        + req.body[i].timestamp + "', '"
+        + req.body[i].latitude + "', '"
+        + req.body[i].longitude + "', '"
+        + req.body[i].altitude + "', '"
+        + req.body[i].indoor + "', '"
+        + req.body[i].route_name + "')");
     }
-    for(var i = 0; i<sqlarr.length; i++){      
-      db.pool.getConnection((err, con) => {
+
+    db.pool.getConnection((err, con) => {
+      for (var i = 0; i < sqlarr.length; i++) {
         var sql = sqlarr[i];
-        console.log("was stimmt hier nicht "+sqlarr);
+        console.log("was stimmt hier nicht " + sqlarr);
         if (err) return res.status(400).send("Databse Error");
         else
           con.query(sql, function (err, result) {
             if (err) res.status(400).send(err.code);
             else {
-              console.log(sql); 
-              res.send(req.body);      
-            }            
+              console.log(sql);
+              res.send(req.body);
+            }
             con.release();
           });
-      }); 
-    }       
+      }
+    });
+
     res.end();
   }
 
