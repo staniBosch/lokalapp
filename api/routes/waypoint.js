@@ -54,8 +54,7 @@ router.post('/', function (req, res) {
             con.release();
           });
       }); 
-      res.send(req.body);
-      res.end();   
+      res.send(req.body);     
   }
 
   else {
