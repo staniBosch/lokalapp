@@ -41,9 +41,9 @@ router.post('/', function (req, res) {
       + req.body[i].altitude + "', '"
       + req.body[i].indoor + "', '"
       + req.body[i].route_name + "')");   
-      console.log("first---"+sql[i]);
+      console.log("first---"+sqlarr[i]);
     }
-    for(var i = 0; i<sql.length; i++){      
+    for(var i = 0; i<sqlarr.length; i++){      
       db.pool.getConnection(function (err, con) {
         var sql = sqlarr[i];
         if (err) return res.status(400).send("Databse Error");
