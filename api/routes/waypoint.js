@@ -46,13 +46,14 @@ router.post('/', function (req, res) {
     for(var i = 0; i<sqlarr.length; i++){      
       db.pool.getConnection(function (err, con) {
         var sql = sqlarr[i];
+        console.log("was stimmt hier nicht "+sql);
         if (err) return res.status(400).send("Databse Error");
         else
           con.query(sql, function (err, result) {
             if (err) res.status(400).send(err.code);
             else {
               console.log(sql); 
-              res.send(req.body[i]);      
+              res.send(req.body);      
             }            
             con.release();
           });
