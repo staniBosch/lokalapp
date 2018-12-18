@@ -47,12 +47,14 @@ router.post('/', function (req, res) {
           con.query(sql, function (err, result) {
             if (err) res.status(400).send(err.code);
             else {
-              console.log("Data created and added as an Array");              
+              console.log("Data created and added as an Array"); 
+              res.send(req.body[i]);      
             }            
             con.release();
           });
       }); 
     } 
+    res.end();
   }
 
   else {
