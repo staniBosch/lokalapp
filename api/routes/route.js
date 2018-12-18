@@ -78,7 +78,7 @@ router.post('/', function (req, res) {
   /* TODO:
    * create an route-value and add to the database
    */
-  var sql = "INSERT INTO route (id, namen) VALUES (NULL, '"
+  var sql = "INSERT INTO route (namen) VALUES ('"
   + req.body.name +"')";
   db.pool.getConnection(function (err, con) {
     if (err) return res.status(400).send("Databse Error");
