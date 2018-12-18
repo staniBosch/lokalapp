@@ -54,10 +54,10 @@ router.post('/', function (req, res) {
             else {
               console.log(sql);
               res.send(req.body);
-            }
-            con.release();
+            }           
           });
       }
+      con.release();
     });
 
     res.end();
