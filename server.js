@@ -68,7 +68,7 @@ app.use('/api/magnetometer', magnetometerRouter);
 app.use('/api/messwerteroute', messwerterouteRouter);
 app.use('/api/netzwerklokalisierung', netzwerklokalisierungRouter);
 app.use('/api/proximity', proximityRouter);
-app.use('/api/route', proximityRouter);
+app.use('/api/route', routeRouter);
 app.use('/api/schrittzaehler', schrittzaehlerRouter);
 app.use('/api/schwerkraft', schwerkraftRouter);
 app.use('/api/umgebungsluftdruck', umgebungsluftdruckRouter);
