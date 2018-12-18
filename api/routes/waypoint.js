@@ -44,7 +44,7 @@ router.post('/', function (req, res) {
       console.log("first---"+sqlarr[i]);
     }
     for(var i = 0; i<sqlarr.length; i++){      
-      db.pool.getConnection(function (err, con) {
+      db.pool.getConnection((err, con) => {
         var sql = sqlarr[i];
         console.log("was stimmt hier nicht "+sql);
         if (err) return res.status(400).send("Databse Error");
