@@ -49,13 +49,13 @@ router.post('/', function (req, res) {
           con.query(sql[i], function (err, result) {
             if (err) res.status(400).send(err.code);
             else {
-              console.log("Data created and added as an Array");
-              res.send(req.body);
-            }
-            res.end();
+              console.log("Data created and added as an Array");              
+            }            
             con.release();
           });
-      });    
+      }); 
+      res.send(req.body);
+      res.end();   
   }
 
   else {
