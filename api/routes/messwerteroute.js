@@ -78,8 +78,9 @@ router.post('/', function (req, res) {
   /* TODO:
    * create an messwerteroute-value and add to the database
    */W
-  var sql = "INSERT INTO messwerteroute (name) VALUES ('"
-  + req.body.name +"')";
+  var sql = "INSERT INTO messwerteroute (name, session_id) VALUES ('"  
+  + req.body.name +"','"
+  + req.body.session_id +"')";
   db.pool.getConnection(function (err, con) {
     if (err) return res.status(400).send("Databse Error");
     else

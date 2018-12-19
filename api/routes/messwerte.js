@@ -50,13 +50,13 @@ router.post('/', function (req, res) {
     /* TODO:
      * create an messwerte-value and add to the database
      */
-    var sql = "INSERT INTO messwerte (id, timestamp, latitude, longitude, altitude, indoor, session_id) VALUES (NULL, '"
+    var sql = "INSERT INTO messwerte (id, timestamp, latitude, longitude, altitude, indoor, messwerteroute_name ) VALUES (NULL, '"
         + req.body.timestamp + "', '"
         + req.body.latitude + "', '"
         + req.body.longitude + "', '"
         + req.body.altitude + "', '"
         + req.body.indoor + "', '"
-        + req.body.session_id + "')";
+        + req.body.messwerteroute_name + "')";
     db.pool.getConnection(function (err, con) {
         if (err) return res.status(400).send("Databse Error");
         else
