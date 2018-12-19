@@ -89,7 +89,7 @@ router.get('/interpolieren/s/:data', function (req, res) {
       interpoliert.push({ "latitude": xtel, "longitude": ytel, "timestamp": ttel });
     }
   }
-  res.status(200).send(interpoliert);
+  res.status(200).send(data);
   res.end();
 });
 
