@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../models/database');
-const kmlCreator = require("../service/KMLCreator.js");
+const kmlCreator = require("../service/GEOCreator.js");
 var fs = require('fs');
 
 

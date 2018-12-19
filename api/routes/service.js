@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var db = require('../models/database');
-const kmlCreator = require("../service/KMLCreator.js");
+const geoCreator = require("../service/GEOCreator.js");
 var fs = require('fs');
 
 
@@ -69,10 +68,22 @@ router.get('/kml/:jsonarray', function (req, res){
   var data = JSON.parse(req.params.jsonarray);
   var fileName = "/../../public/tmp.kml";
   var savedFilePath = __dirname + fileName;
-  var fileContents = kmlCreator.createKML(data);
+  var fileContents = geoCreator.createKML(data);
   fs.writeFile(savedFilePath, fileContents, function (err) {
     if (err) console.log(err);
     res.status(200).download(savedFilePath, "kmlfile.kml");
+  });
+});
+module.exports = router;
+
+router.get('/gpx/:jsonarray', function (req, res){
+  var data = JSON.parse(req.params.jsonarray);
+  var fileName = "/../../public/tmp.gpx";
+  var savedFilePath = __dirname + fileName;
+  var fileContents = geoCreator.createGPX(data);
+  fs.writeFile(savedFilePath, fileContents, function (err) {
+    if (err) console.log(err);
+    res.status(200).download(savedFilePath, "gpxfile.gpx");
   });
 });
 module.exports = router;
