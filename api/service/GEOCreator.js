@@ -24,13 +24,13 @@ module.exports = {
         var kml = this.createHeadGPX();               
         for (var i = 0; i < data.length; i++) {
             var wpt = kml.ele('wpt').attribute({ 'lat': data[i]["latitude"], 'lon': data[i]["longitude"]});
-            wpt.ele('time', data[i]["timestamp"]);
+            wpt.ele('time', new Date(data[i]["timestamp"]));
         }
         return kml.end({ pretty: true });
     },
     createHeadGPX() {
         var builder = require('xmlbuilder');
-        var xml = builder.create('gpx', { version: '1.1', encoding: 'UTF-8' })
+        var xml = builder.create('gpx', { version: '1.0', encoding: 'UTF-8' })
             .attribute({ xmlns: "http://www.topografix.com/GPX/1/1" });
         return xml;
     }
