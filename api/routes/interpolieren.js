@@ -4,53 +4,63 @@ var db = require('../models/database');
 
 
 
-// Service fürs Interpolieren von Koordinaten 
-router.post('/', function(req, res) { 
-  var interpoliert = [];   
-   //i=0
-   for(var ai = 0; ai<req.body.length-1; ai++){
-    var x0 = req.body[ai].latitude
-    var y0 = req.body[ai].longitude
-    var x1 = req.body[ai+1].latitude
-    var y1 = req.body[ai+1].longitude   
-     var t0 = req.body[ai].timestamp;
-     var t1 = req.body[ai+1].timestamp;
-     var tdiff = t1-t0;
-    for(var i = 0; i<tdiff; i++){
-       var xtel = (x1-x0)*i/tdiff;
-       var ytel = (y1-y0)*i/tdiff;   
-       var ttel = t0+i;
-       interpoliert.push[{"latitude":xtel,"longitude":ytel,"timestamp":ttel}]  
-    }    
-   }
-   res.status(200).send(interpoliert);
-   res.end();  
-});
-
-router.post('/ms', function(req, res) {
-
-  var interpoliert = [];
-   
+// Service fürs Interpolieren von Koordinaten in ms schritten
+router.post('/ms', function (req, res) {
+  var timefactor = 1;
+  if (req.body.length > 1)
+    if (req.body[0].timestamp < 90000000000)
+      timefactor = 1000;
+  var interpoliert = [{ "latitude": req.body[0].latitude, "longitude": req.body[0].longitude, "timestamp": (req.body[0].timestamp * timefactor) }];
   //i=0
-
-  for(var ai = 0; ai<req.body.length-1; ai++){
-   var x0 = req.body[ai].latitude
-   var y0 = req.body[ai].longitude
-   var x1 = req.body[ai+1].latitude
-   var y1 = req.body[ai+1].longitude
-  
-    var t0 = req.body[ai].timestamp;
-    var t1 = req.body[ai+1].timestamp;
-    var tdiff = t1-t0;
-   for(var i = 0; i<tdiff; i++){
-      var xtel = (x1-x0)*i/tdiff;
-      var ytel = (y1-y0)*i/tdiff;   
-      var ttel = t0+i;
-      interpoliert.push[{"latitude":xtel,"longitude":ytel,"timestamp":ttel}]  
-   }
-   res.status(200).send(interpoliert);
+  for (var ai = 0; ai < req.body.length - 1; ai++) {
+    var x0 = Number(req.body[ai].latitude);
+    var y0 = Number(req.body[ai].longitude);
+    var x1 = Number(req.body[ai + 1].latitude);
+    var y1 = Number(req.body[ai + 1].longitude);
+    var t0 = Number(req.body[ai].timestamp) * timefactor;
+    var t1 = Number(req.body[ai + 1].timestamp) * timefactor;
+    var tdiff = t1 - t0;
+    for (var t = 1; t < tdiff + 1; t++) {
+      var xdiff = (x1 - x0) * t / tdiff;
+      var ydiff = (y1 - y0) * t / tdiff;
+      var xtel = Number(x0) + Number(xdiff);
+      var ytel = Number(y0) + Number(ydiff);
+      var ttel = Number(t0) + Number(t);
+      interpoliert.push({ "latitude": xtel, "longitude": ytel, "timestamp": ttel });
+    }
   }
-
+  res.status(200).send(interpoliert);
+  res.end();
 });
+
+// Service fürs Interpolieren von Koordinaten in ms schritten
+router.post('/s', function (req, res) {
+  var timefactor = 1;
+  if (req.body.length > 1)
+    if (req.body[0].timestamp > 90000000000)
+      timefactor = 1 / 1000;
+  var interpoliert = [{ "latitude": req.body[0].latitude, "longitude": req.body[0].longitude, "timestamp": (req.body[0].timestamp * timefactor) }];
+  //i=0
+  for (var ai = 0; ai < req.body.length - 1; ai++) {
+    var x0 = Number(req.body[ai].latitude);
+    var y0 = Number(req.body[ai].longitude);
+    var x1 = Number(req.body[ai + 1].latitude);
+    var y1 = Number(req.body[ai + 1].longitude);
+    var t0 = Number(req.body[ai].timestamp) * timefactor;
+    var t1 = Number(req.body[ai + 1].timestamp) * timefactor;
+    var tdiff = t1 - t0;
+    for (var t = 1; t < tdiff + 1; t++) {
+      var xdiff = (x1 - x0) * t / tdiff;
+      var ydiff = (y1 - y0) * t / tdiff;
+      var xtel = Number(x0) + Number(xdiff);
+      var ytel = Number(y0) + Number(ydiff);
+      var ttel = Number(t0) + Number(t);
+      interpoliert.push({ "latitude": xtel, "longitude": ytel, "timestamp": ttel });
+    }
+  }
+  res.status(200).send(interpoliert);
+  res.end();
+});
+
 
 module.exports = router;
