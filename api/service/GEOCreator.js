@@ -23,8 +23,9 @@ module.exports = {
 
         var kml = this.createHeadGPX();
         for (var i = 0; i < data.length; i++) {
+            var date = new Date(data[i]["timestamp"]);
             var wpt = kml.ele('wpt').attribute({ 'lat': data[i]["latitude"], 'lon': data[i]["longitude"] });
-            wpt.ele('time', new Date(data[i]["timestamp"]));
+            wpt.ele('time', date);
         }
         return kml.end({ pretty: true });
     },
