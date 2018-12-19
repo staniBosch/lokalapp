@@ -66,7 +66,7 @@ router.post('/interpolieren/s', function (req, res) {
 // Service fürs Interpolieren von Koordinaten in ms schritten
 router.get('/interpolieren/s/:data', function (req, res) {
   var timefactor = 1;
-  var data = req.params.data;
+  var data = JSON.parse(req.params.data);
   if (data.length > 1)
     if (data[0].timestamp > 90000000000)
       timefactor = 1 / 1000;
@@ -89,7 +89,7 @@ router.get('/interpolieren/s/:data', function (req, res) {
       interpoliert.push({ "latitude": xtel, "longitude": ytel, "timestamp": ttel });
     }
   }
-  res.status(200).send(data);
+  res.status(200).send(interpoliert);
   res.end();
 });
 
