@@ -1,11 +1,13 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../models/database');
+const kmlCreator = require("../service/KMLCreator.js");
+var fs = require('fs');
 
 
 
 // Service fürs Interpolieren von Koordinaten in ms schritten
-router.post('/ms', function (req, res) {
+router.post('/interpolieren/ms', function (req, res) {
   var timefactor = 1;
   if (req.body.length > 1)
     if (req.body[0].timestamp < 90000000000)
@@ -34,7 +36,7 @@ router.post('/ms', function (req, res) {
 });
 
 // Service fürs Interpolieren von Koordinaten in ms schritten
-router.post('/s', function (req, res) {
+router.post('/interpolieren/s', function (req, res) {
   var timefactor = 1;
   if (req.body.length > 1)
     if (req.body[0].timestamp > 90000000000)
@@ -63,4 +65,14 @@ router.post('/s', function (req, res) {
 });
 
 
+router.get('/kml/:jsonarray', function (req, res){
+  var data = JSON.parse(req.params.jsonarray);
+  var fileName = "/../../public/tmp.kml";
+  var savedFilePath = __dirname + fileName;
+  var fileContents = kmlCreator.createKML(data);
+  fs.writeFile(savedFilePath, fileContents, function (err) {
+    if (err) console.log(err);
+    res.status(200).download(savedFilePath, "waypoints.kml");
+  });
+});
 module.exports = router;
