@@ -21,25 +21,23 @@ module.exports = {
 
     createGPX(data) {
 
-        var kml = this.createHeadGPX();
-        for (var i = 0; i < data.length; i++) {
-            var date = this.getTime(Number(data[i]["timestamp"]));
-            var wpt = kml.ele('wpt').attribute({ 'lat': data[i]["latitude"], 'lon': data[i]["longitude"] });
-            wpt.ele('time', date);
+        var gpx = this.createHeadGPX();
+        for (var i = 0; i < data.length; i++) {         
+            var wpt = gpx.ele('wpt').attribute({ 'lat': data[i]["latitude"], 'lon': data[i]["longitude"] });
+            wpt.ele('time', this.getTime(data[i]["timestamp"]));
         }
-        return kml.end({ pretty: true });
+        return gpx.end({ pretty: true });
     },
     createHeadGPX() {
         var builder = require('xmlbuilder');
         var xml = builder.create('gpx', { version: '1.0', encoding: 'UTF-8' })
-            .attribute({ xmlns: "http://www.topografix.com/GPX/1/1", version: "1.1", creator: "team1", 'xmlns:xsi': "http://www.w3.org/2001/XMLSchema-instance" , 'xsi:schemaLocation':"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" });
+            .attribute({ xmlns: "http://www.topografix.com/GPX/1/1", version: "1.1", creator: "team1", 'xmlns:xsi': "http://www.w3.org/2001/XMLSchema-instance", 'xsi:schemaLocation': "http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" });
         return xml;
     },
-    getTime(time){
-        
-        var date = new Date(time);
-        console.log("the Time is : "+date);
-
-        return date;
+    getTime(time) {
+        var date = new Date(time);        
+        var dateSQLFormat = "";
+        dateSQLFormat = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate() + "T" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "Z";
+        return dateSQLFormat;
     }
 }
