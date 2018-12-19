@@ -23,7 +23,7 @@ module.exports = {
 
         var kml = this.createHeadGPX();
         for (var i = 0; i < data.length; i++) {
-            var date = new Date(Number(data[i]["timestamp"]));
+            var date = getTime(Number(data[i]["timestamp"]));
             var wpt = kml.ele('wpt').attribute({ 'lat': data[i]["latitude"], 'lon': data[i]["longitude"] });
             wpt.ele('time', date);
         }
@@ -34,5 +34,12 @@ module.exports = {
         var xml = builder.create('gpx', { version: '1.0', encoding: 'UTF-8' })
             .attribute({ xmlns: "http://www.topografix.com/GPX/1/1", version: "1.1", creator: "team1", 'xmlns:xsi': "http://www.w3.org/2001/XMLSchema-instance" , 'xsi:schemaLocation':"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" });
         return xml;
+    },
+    getTime(time){
+        
+        var date = new Date(time);
+        console.log("the Time is : "+date);
+
+        return date;
     }
 }
