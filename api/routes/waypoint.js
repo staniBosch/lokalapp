@@ -36,8 +36,7 @@ router.post('/', function (req, res) {
       if (err) return res.status(400).send("Databse Error");
       else {
         for (var i = 0; i < req.body.length; i++) {
-          var sql = "INSERT INTO waypoint (id, timestamp, latitude, longitude, altitude, indoor, route_name) VALUES (NULL, '"
-            + req.body[i].timestamp + "', '"
+          var sql = "INSERT INTO waypoint (id, latitude, longitude, altitude, indoor, route_name) VALUES (NULL, '"            
             + req.body[i].latitude + "', '"
             + req.body[i].longitude + "', '"
             + req.body[i].altitude + "', '"
