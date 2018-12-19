@@ -35,7 +35,10 @@ module.exports = {
         return xml;
     },
     getTime(time) {
-        var date = new Date(time);        
+        var timef = time;
+        if(time<104521459000)
+            timef = time*1000;
+        var date = new Date(timef);        
         var dateSQLFormat = "";
         dateSQLFormat = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate() + "T" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "Z";
         return dateSQLFormat;
