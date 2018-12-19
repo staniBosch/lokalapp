@@ -5,19 +5,14 @@ var db = require('../models/database');
 
 
 // Service fürs Interpolieren von Koordinaten 
-router.post('/', function(req, res) {
-
- 
-  var interpoliert = [];
-   
+router.post('/', function(req, res) { 
+  var interpoliert = [];   
    //i=0
-
    for(var ai = 0; ai<req.body.length-1; ai++){
     var x0 = req.body[ai].latitude
     var y0 = req.body[ai].longitude
     var x1 = req.body[ai+1].latitude
-    var y1 = req.body[ai+1].longitude
-   
+    var y1 = req.body[ai+1].longitude   
      var t0 = req.body[ai].timestamp;
      var t1 = req.body[ai+1].timestamp;
      var tdiff = t1-t0;
@@ -26,12 +21,10 @@ router.post('/', function(req, res) {
        var ytel = (y1-y0)*i/tdiff;   
        var ttel = t0+i;
        interpoliert.push[{"latitude":xtel,"longitude":ytel,"timestamp":ttel}]  
-    }
-    res.status(200).send(interpoliert);
+    }    
    }
-
-   
-  
+   res.status(200).send(interpoliert);
+   res.end();  
 });
 
 router.post('/ms', function(req, res) {
