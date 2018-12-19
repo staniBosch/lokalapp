@@ -72,7 +72,7 @@ router.get('/kml/:jsonarray', function (req, res){
   var fileContents = kmlCreator.createKML(data);
   fs.writeFile(savedFilePath, fileContents, function (err) {
     if (err) console.log(err);
-    res.status(200).download(savedFilePath, "waypoints.kml");
+    res.status(200).download(savedFilePath, "kmlfile.kml");
   });
 });
 module.exports = router;
