@@ -31,7 +31,7 @@ router.get('/:name', function (req, res, next) {
    * get all route-data from the database
    */
   var name = req.params.name;
-  var sql = "SELECT * FROM messwerte inner join messwerteroute on messwerte.messwerteroute_name=messwerteroute.name where messwerteroute.name='"+name+"'";
+  var sql = "Select * FROM messwerteroute_view where messwerteroute_name='"+name+"'";
   db.pool.getConnection(function (err, con) {
     if (err) return res.status(400).send("Databse Error");
     else
