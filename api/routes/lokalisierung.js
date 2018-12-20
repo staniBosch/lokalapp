@@ -29,35 +29,51 @@ router.post('/', function (req, res) {
     /* TODO:
      * create an lokalisierung-sensor-data and add it to the database
      */
-    var temp;
-    if (req.body instanceof Array){
-        temp = req.body[0];
-    }       
-    else
-        temp = req.body;
-
-    var sql = "INSERT INTO lokalisierung (id, timestamp, latitude, longitude, altitude, beschreibung, session_id) VALUES (NULL, '"
-    + temp.timestamp +"', '" 
-    + temp.latitude + "', '" 
-    + temp.longitude + "','" 
-    + temp.altitude + "','" 
-    + temp.beschreibung + "','" 
-    + temp.session_id + "')";
-
-    db.pool.getConnection(function (err, con) {
-        if (err) return res.status(400).send("Database Error");
-        else
-            con.query(sql, function (err, result) {
-                if (err) res.status(400).send(err);
-                else {
-                    console.log("Data created and added");
-                    res.send(req.body);
+    if (req.body instanceof Array) {
+        db.pool.getConnection(function (err, con) {
+            if (err) return res.status(400).send("Databse Error");
+            else {
+                for (var i = 0; i < req.body.length; i++) {
+                    var sql = "INSERT INTO lokalisierung (id, timestamp, latitude, longitude, altitude, beschreibung, session_id) VALUES (NULL, '"
+                        + req.body[i].timestamp + "', '"
+                        + req.body[i].latitude + "', '"
+                        + req.body[i].longitude + "','"
+                        + req.body[i].altitude + "','"
+                        + req.body[i].beschreibung + "','"
+                        + req.body[i].session_id + "')";
+                    var bool = true;
+                    con.query(sql, function (err, result) {
+                        if (err) res.status(400).send(err.code);
+                        else {
+                            if (bool) { res.send(req.body); res.end(); bool = false; }
+                        }
+                    });
                 }
-                res.end();
-                con.release();
-            });
-    });
-
+            }
+        });
+    }
+    else {
+        var sql = "INSERT INTO lokalisierung (id, timestamp, latitude, longitude, altitude, beschreibung, session_id) VALUES (NULL, '"
+            + req.body.timestamp + "', '"
+            + req.body.latitude + "', '"
+            + req.body.longitude + "','"
+            + req.body.altitude + "','"
+            + req.body.beschreibung + "','"
+            + req.body.session_id + "')";
+        db.pool.getConnection(function (err, con) {
+            if (err) return res.status(400).send("Databse Error");
+            else
+                con.query(sql, function (err, result) {
+                    if (err) res.status(400).send(err.code);
+                    else {
+                        console.log("Data created and added");
+                        res.send(req.body);
+                    }
+                    res.end();
+                    con.release();
+                });
+        });
+    }
 });
 
 // Delete /api/gps/clear
@@ -80,7 +96,7 @@ router.delete('/clear', function (req, res) {
     });
 });
 
-router.get('/kml', function (req, res, next) {     
+router.get('/kml', function (req, res, next) {
 
     db.pool.getConnection(function (err, con) {
         var fileName = "/../../public/tmp.kml";
@@ -94,7 +110,7 @@ router.get('/kml', function (req, res, next) {
                     fs.writeFile(savedFilePath, fileContents, function (err) {
                         if (err) console.log(err);
                         res.status(200).download(savedFilePath, "lokalisierung.kml");
-                    });                    
+                    });
                 }
                 con.release();
             });
