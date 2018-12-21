@@ -44,7 +44,7 @@ router.get('/:name', function (req, res, next) {
   });
 });
 
-// GET /api/route/:name/kml
+// GET /api/messwerteroute/:name/kml
 router.get('/:name/kml', function (req, res, next) {
 
   /* TODO:
@@ -77,9 +77,10 @@ router.post('/', function (req, res) {
 
   /* TODO:
    * create an messwerteroute-value and add to the database
-   */W
+   */
   var sql = "INSERT INTO messwerteroute (name, session_id) VALUES ('"  
   + req.body.name +"','"
+  + req.body.route_template +"','"
   + req.body.session_id +"')";
   db.pool.getConnection(function (err, con) {
     if (err) return res.status(400).send("Databse Error");
