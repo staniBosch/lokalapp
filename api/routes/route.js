@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../models/database');
-const kmlCreator = require("../service/GEOCreator.js");
+const geoCreator = require("../service/GEOCreator.js");
 var fs = require('fs');
 
 
@@ -10,7 +10,7 @@ router.get('/', function (req, res, next) {
 
   /* TODO:
    * get all route-data from the database
-   */  
+   */
   db.pool.getConnection(function (err, con) {
     if (err) return res.status(400).send("Databse Error");
     else
@@ -24,14 +24,14 @@ router.get('/', function (req, res, next) {
 });
 
 
-// GET /api/route/:name/waypoint
-router.get('/:name/waypoints', function (req, res, next) {
+// GET /api/route/:name
+router.get('/:name', function (req, res, next) {
 
   /* TODO:
    * get all route-data from the database
    */
   var name = req.params.name;
-  var sql = "SELECT * FROM route inner join waypoint on route.name=waypoint.route_name where route.name='"+name+"'";
+  var sql = "SELECT * FROM route inner join waypoint on route.name=waypoint.route_name where route.name='" + name + "'";
   db.pool.getConnection(function (err, con) {
     if (err) return res.status(400).send("Databse Error");
     else
@@ -44,32 +44,35 @@ router.get('/:name/waypoints', function (req, res, next) {
   });
 });
 
-// GET /api/route/:name/waypoint/kml
-router.get('/:name/waypoints/kml', function (req, res, next) {
+// GET /api/route/:name/kml
+router.get('/:name/kml', function (req, res, next) {
 
   /* TODO:
    * get all route-data from the database
    */
   var name = req.params.name;
-  var sql = "SELECT * FROM route inner join waypoint on route.name=waypoint.route_name where route.name='"+name+"'";
+  var sql = "SELECT * FROM route inner join waypoint on route.name=waypoint.route_name where route.name='" + name + "'";
   db.pool.getConnection(function (err, con) {
-    var fileName = "/../../public/tmp.kml";
-      var savedFilePath = __dirname + fileName;
     if (err) return res.status(400).send("Databse Error");
     else
       con.query(sql, function (err, result, fields) {
         if (err) res.status(400).send(err.code);
-        else{
-          var fileContents = kmlCreator.createKML(result);
+        else {
+          var data = result;
+          var fileName = "/../../public/tmp.kml";
+          var savedFilePath = __dirname + fileName;
+          var fileContents = geoCreator.createKML(data);
           fs.writeFile(savedFilePath, fileContents, function (err) {
-              if (err) console.log(err);
-              res.status(200).download(savedFilePath, "messwerteroute.kml");
-          });              
+            if (err) console.log(err);
+            res.status(200).download(savedFilePath, "kmlfile.kml");
+           //
+          con.release();
+          });
         }
-        res.end();
-        con.release();
+        
       });
   });
+
 });
 
 // POST /api/route/
@@ -79,7 +82,7 @@ router.post('/', function (req, res) {
    * create an route-value and add to the database
    */
   var sql = "INSERT INTO route (name) VALUES ('"
-  + req.body.name +"')";
+    + req.body.name + "')";
   db.pool.getConnection(function (err, con) {
     if (err) return res.status(400).send("Databse Error");
     else
