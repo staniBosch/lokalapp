@@ -3,12 +3,21 @@ lokalappRest is a Restful Service for gathering Sensor-Data. Its written in Java
 
 Content-Type is Json.
 
-The Service is running on Port 3000.
+The Service is running on Port 3000(with cert for tls: 3443).
 To use the code modify the api/models/database.js.
 Run npm -install.
 
 ### Example Server
 http://sbcon.ddns.net:3000/api/gps
+
+## Services
+
+| Usage  | GET | POST  | POST/GET-JSON-Data |
+| ------------- | ------------- | ------------- | ------------- |
+| *lineare Interpolation von GroundTruth-data in Sekunden*  | .../api/service/interpolieren/s/:JSONARRAY | .../api/service/interpolieren/s/  | {"latitude":"Value-Double", "longitude:"Value-Double", "timestamp":"Value-Long"}  |
+| *lineare Interpolation von GroundTruth-data in Milisekunden*  | --- | .../api/service/interpolieren/ms/ | {"latitude":"Value-Double", "longitude:"Value-Double", "timestamp":"Value-Long"}  |
+| *Speichern als KML*  | .../api/service/kml/[JSONARRAY]  | ---  | {"latitude":"Value-Double", "longitude:"Value-Double", "timestamp":"Value-Long"}  |
+| *Speichern als GPX*  | .../api/service/gpx/[JSONARRAY]  | ---  | {"latitude":"Value-Double", "longitude:"Value-Double", "timestamp":"Value-Long"}  |
 
 ### Paths
 
