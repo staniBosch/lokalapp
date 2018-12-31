@@ -78,7 +78,7 @@ router.post('/', function (req, res) {
   /* TODO:
    * create an messwerteroute-value and add to the database
    */
-  var sql = "INSERT INTO messwerteroute (name, session_id) VALUES ('"  
+  var sql = "INSERT INTO messwerteroute (name, route_template, session_id) VALUES ('"  
   + req.body.name +"','"
   + req.body.route_template +"','"
   + req.body.session_id +"')";
