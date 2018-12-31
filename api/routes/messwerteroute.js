@@ -89,7 +89,7 @@ router.post('/', function (req, res) {
         if (err) res.status(400).send(err.code);
         else {
           console.log("Data created and added");
-          res.send(req.body);
+          res.send(sql);
         }
         res.end();
         con.release();
