@@ -86,10 +86,10 @@ router.post('/', function (req, res) {
     if (err) return res.status(400).send("Databse Error");
     else
       con.query(sql, function (err, result) {
-        if (err) res.status(400).send(err.code+sql);
+        if (err) res.status(400).send(err.code);
         else {
           console.log("Data created and added");
-          res.send(sql);
+          res.send(result);
         }
         res.end();
         con.release();
