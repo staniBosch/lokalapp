@@ -31,7 +31,7 @@ router.get('/:session_id/:name', function (req, res, next) {
      */
     var name = req.params.name;
     var session_id = req.params.session_id;
-    var sql = "SELECT * FROM messwerte inner join messwerteroute on messwerte.messwerteroute_name=messwerteroute.name where session_id=" + session_id+" AND messwerteroute.name="+name;
+    var sql = "Select * FROM messwerteroute_view where name='"+name+"' AND session_id='"+session_id+"'";
     db.pool.getConnection(function (err, con) {
         if (err) return res.status(400).send("Databse Error");
         else

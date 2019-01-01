@@ -25,13 +25,15 @@ router.get('/', function (req, res, next) {
 
 
 // GET /api/messwerteroute/:session_id/:name/
-router.get('/:name', function (req, res, next) {
+router.get('/:session_id/:name', function (req, res, next) {
 
   /* TODO:
    * get all route-data from the database
    */
-  var name = req.params.name;
-  var sql = "Select * FROM messwerteroute_view where messwerteroute_name='"+name+"'";
+  var session_id = req.params.session_id;
+   var name = req.params.name;
+
+  var sql = "Select * FROM messwerteroute_view where name='"+name+"' AND session_id='"+session_id+"'";
   db.pool.getConnection(function (err, con) {
     if (err) return res.status(400).send("Databse Error");
     else
@@ -45,13 +47,14 @@ router.get('/:name', function (req, res, next) {
 });
 
 // GET /api/messwerteroute/:name/kml
-router.get('/:name/kml', function (req, res, next) {
+router.get('/:session_id/:name/kml', function (req, res, next) {
 
   /* TODO:
    * get all route-data from the database
    */
+  var session_id = req.params.session_id;
   var name = req.params.name;
-  var sql = "SELECT * FROM route inner join waypoint on route.name=waypoint.route_name where route.name='"+name+"'";
+  var sql = "Select * FROM messwerteroute_view where name='"+name+"' AND session_id='"+session_id+"'";
   db.pool.getConnection(function (err, con) {
     var fileName = "/../../public/tmp.kml";
       var savedFilePath = __dirname + fileName;
