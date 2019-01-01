@@ -24,7 +24,7 @@ router.get('/', function (req, res, next) {
 });
 
 
-// GET /api/route/:name/waypoint
+// GET /api/messwerteroute/:session_id/:name/
 router.get('/:name', function (req, res, next) {
 
   /* TODO:

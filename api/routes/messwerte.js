@@ -24,14 +24,14 @@ router.get('/', function (req, res, next) {
 });
 
 // GET /api/messwerte/:id/:sensor
-router.get('/id/:id/:sensor', function (req, res, next) {
+router.get('/:session_id/:name', function (req, res, next) {
 
     /* TODO:
      * get all messwerte-data from the database
      */
-    var sensor = req.params.sensor;
-    var id = req.params.id;
-    var sql = "SELECT * FROM messwerte inner join " + sensor + " on session.id=" + sensor + ".session_id where session.id=" + id;
+    var name = req.params.name;
+    var session_id = req.params.session_id;
+    var sql = "SELECT * FROM messwerte inner join messwerteroute on messwerte.messwerteroute_name=messwerteroute.name where session_id=" + session_id+" AND messwerteroute.name="+name;
     db.pool.getConnection(function (err, con) {
         if (err) return res.status(400).send("Databse Error");
         else
@@ -50,13 +50,14 @@ router.post('/', function (req, res) {
     /* TODO:
      * create an messwerte-value and add to the database
      */
-    var sql = "INSERT INTO messwerte (id, timestamp, latitude, longitude, altitude, indoor, messwerteroute_name ) VALUES (NULL, '"
+    var sql = "INSERT INTO messwerte (id, timestamp, latitude, longitude, altitude, indoor, messwerteroute_name, session_id ) VALUES (NULL, '"
         + req.body.timestamp + "', '"
         + req.body.latitude + "', '"
         + req.body.longitude + "', '"
         + req.body.altitude + "', '"
         + req.body.indoor + "', '"
-        + req.body.messwerteroute_name + "')";
+        + req.body.messwerteroute_name + "', '"
+        + req.body.session_id + "')";
     db.pool.getConnection(function (err, con) {
         if (err) return res.status(400).send("Databse Error");
         else
