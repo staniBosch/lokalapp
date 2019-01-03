@@ -40,7 +40,9 @@ router.post('/interpolieren/s', function (req, res) {
   if (req.body.length > 1)
     if (req.body[0].timestamp > 90000000000)
       timefactor = 1 / 1000;
-  var interpoliert = [{ "latitude": req.body[0].latitude, "longitude": req.body[0].longitude, "timestamp": (Math.round(req.body[0].timestamp * timefactor)) }];
+  var interpoliert = [];
+  if (req.body.length > 1)
+    interpoliert = [{ "latitude": req.body[0].latitude, "longitude": req.body[0].longitude, "timestamp": (Math.round(req.body[0].timestamp * timefactor)) }];
   //i=0
   for (var ai = 0; ai < req.body.length - 1; ai++) {
     var x0 = Number(req.body[ai].latitude);
@@ -96,7 +98,7 @@ router.get('/interpolieren/s/:data', function (req, res) {
 
 
 
-router.get('/kml/:jsonarray', function (req, res){
+router.get('/kml/:jsonarray', function (req, res) {
   var data = JSON.parse(req.params.jsonarray);
   var fileName = "/../../public/tmp.kml";
   var savedFilePath = __dirname + fileName;
@@ -108,7 +110,7 @@ router.get('/kml/:jsonarray', function (req, res){
 });
 module.exports = router;
 
-router.get('/gpx/:jsonarray', function (req, res){
+router.get('/gpx/:jsonarray', function (req, res) {
   var data = JSON.parse(req.params.jsonarray);
   var fileName = "/../../public/tmp.gpx";
   var savedFilePath = __dirname + fileName;
