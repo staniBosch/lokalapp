@@ -41,7 +41,7 @@ router.post('/interpolieren/s', function (req, res) {
     if (req.body[0].timestamp > 90000000000)
       timefactor = 1 / 1000;
   var interpoliert = [];
-  if (req.body.length > 1)
+  if (req.body.length > 0)
     interpoliert = [{ "latitude": req.body[0].latitude, "longitude": req.body[0].longitude, "timestamp": (Math.round(req.body[0].timestamp * timefactor)) }];
   //i=0
   for (var ai = 0; ai < req.body.length - 1; ai++) {
