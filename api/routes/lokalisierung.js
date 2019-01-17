@@ -14,7 +14,7 @@ router.get('/', function (req, res, next) {
     db.pool.getConnection(function (err, con) {
         if (err) return res.status(400).send("Database Error");
         else
-            con.query("SELECT * FROM lokalisierung", function (err, result, fields) {
+            con.query("SELECT * FROM lokalisierung ORDER BY timestamp", function (err, result, fields) {
                 if (err) throw err;
                 else res.status(200).send(result);
                 res.end();

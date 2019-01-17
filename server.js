@@ -85,7 +85,7 @@ app.use('/api/waypoint', waypointRouter);
 const port = normalizePort(process.env.PORT || '3000');
 const sshport = normalizePort(process.env.PORT || '3443');
 
-app.set('port', sshport);
+//app.set('port', sshport);
 
 // Create HTTP and https server.
 const server = http.createServer(app);
