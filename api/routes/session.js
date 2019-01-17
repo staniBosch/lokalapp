@@ -33,7 +33,7 @@ router.get('/id/:id/:sensor', function (req, res, next) {
   var id = req.params.id;
   var sql = "";
   if (sensor == "lokalisierung" || sensor == "messwerte")
-    sql = "SELECT * FROM session inner join " + sensor + " on session.id=" + sensor + ".session_id where session.id=" + id + " ORDER BY lokalisierung.timestamp";
+    sql = "SELECT * FROM session inner join " + sensor + " on session.id=" + sensor + ".session_id where session.id=" + id + " ORDER BY "+sensor+".timestamp";
   else
     sql = "SELECT * FROM session inner join " + sensor + " on session.id=" + sensor + ".session_id where session.id=" + id;
   db.pool.getConnection(function (err, con) {
