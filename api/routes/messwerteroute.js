@@ -33,7 +33,7 @@ router.get('/:session_id/:name', function (req, res, next) {
   var session_id = req.params.session_id;
    var name = req.params.name;
 
-  var sql = "Select * FROM messwerteroute_view where name='"+name+"' AND session_id='"+session_id+"'";
+  var sql = "Select * FROM messwerteroute_view where name='"+name+"' AND session_id='"+session_id+"' ORDER BY timestamp";
   db.pool.getConnection(function (err, con) {
     if (err) return res.status(400).send("Databse Error");
     else
