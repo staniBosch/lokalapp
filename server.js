@@ -150,7 +150,7 @@ router.get('/api', function (req, res) {
 
 router.get('/download', function (req, res) {
 
-  var file = __dirname + '/public/download/app-debug.apk';
+  var file = __dirname + '/public/download/sensordatensammlerAppAndroid.apk';
   res.download(file); // Set disposition and send it.
 
 });
