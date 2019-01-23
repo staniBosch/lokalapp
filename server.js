@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const xmlparser = require('express-xml-bodyparser');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const debug = require('debug')('web-application:server');
@@ -45,9 +46,10 @@ const waypointRouter = require('./api/routes/waypoint');
 const app = express();
 
 // Set up body enconding, logger and static folder
-app.use(logger('dev'));
+app.use(logger('combined'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(xmlparser());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

@@ -76,6 +76,18 @@ router.post('/', function (req, res) {
     }
 });
 
+router.post('/session/:id', function(req, res, next) {
+ 
+    // req.body contains the parsed xml
+   // var parser = new DOMParser();
+   // xmlDoc = parser.parseFromString(req.body,"text/xml");
+
+    console.log(req.params.id);
+    var data = req.body;
+    res.send(data.kml.folder[0].placemark[0].point[0].coordinates);
+    res.end();
+  });
+
 // Delete /api/gps/clear
 router.delete('/clear', function (req, res) {
 
