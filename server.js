@@ -54,7 +54,7 @@ var accessLogStream = rfs('access.log', {
   path: '/home/pi/pi-share/log'
 })
 
-app.use(logger(':remote-addr - :remote-user ":method :url" :status "[Device] :device"', { stream: accessLogStream }));
+app.use(logger(':remote-addr - :remote-user [:date[clf]] ":method :url" :status "[Device] :device"', { stream: accessLogStream }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
