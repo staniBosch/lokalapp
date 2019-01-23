@@ -46,7 +46,7 @@ const waypointRouter = require('./api/routes/waypoint');
 const app = express();
 
 // Set up body enconding, logger and static folder
-app.use(logger('combined'));
+app.use(logger('common'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(xmlparser());
