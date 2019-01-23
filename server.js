@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const xmlparser = require('express-xml-bodyparser');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const rfs = require('rotating-file-stream')
 const debug = require('debug')('web-application:server');
 const http = require('http');
 const https = require('https');
@@ -47,7 +48,14 @@ const app = express();
 
 // Set up body enconding, logger and static folder
 logger.token('device', function (req, res) { return req.headers['user-agent'].split('(')[1].split(')')[0] })
-app.use(logger(':remote-addr - :remote-user ":method :url" :status "[Device] :device"'));
+// create a rotating write stream
+var accessLogStream = rfs('access.log', {
+  interval: '1d', // rotate daily
+  path: '/home/pi/pi-share/log'
+})
+
+app.use(logger(':remote-addr - :remote-user ":method :url" :status "[Device] :device"', { stream: accessLogStream }));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(xmlparser());
