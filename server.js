@@ -46,7 +46,8 @@ const waypointRouter = require('./api/routes/waypoint');
 const app = express();
 
 // Set up body enconding, logger and static folder
-app.use(logger('common'));
+logger.token('device', function (req, res) { return req.headers['user-agent'].split('(')[1].split(')')[0] })
+app.use(logger(':remote-addr - :remote-user ":method :url" :status "[Device] :device"'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(xmlparser());
