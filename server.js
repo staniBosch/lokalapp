@@ -23,8 +23,7 @@ var credentials = { key: privateKey, cert: certificate, ca: ca };
 // APP-Instance
 const app = express();
 
-//Add all Routes for Services
-const lokalAppRoutes = require('./api/lokalappRest/paths')(app, hostaddr);
+
 
 // Set up body enconding, logger and static folder
 logger.token('device', function (req, res) { return req.headers['user-agent'].split('(')[1].split(')')[0] })
@@ -44,8 +43,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(cookieParser());
-//app.use(cors());
+app.use(cors());
 
+//Add all Routes for Services
+const lokalAppRoutes = require('./api/lokalappRest/paths')(app, hostaddr);
 
 // Get port from environment and store in Express.
 const port = normalizePort(process.env.PORT || '3000');
