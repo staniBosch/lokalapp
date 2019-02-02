@@ -9,42 +9,22 @@ const http = require('http');
 const https = require('https');
 const cors = require('cors');
 const fs = require('fs');
+
 const hostaddr = "http://sbcon.ddns.net:3000/";
 const privateKey = fs.readFileSync('/etc/letsencrypt/live/sbcon.ddns.net/privkey.pem', 'utf8');
 const certificate = fs.readFileSync('/etc/letsencrypt/live/sbcon.ddns.net/cert.pem', 'utf8');
 const ca = fs.readFileSync('/etc/letsencrypt/live/sbcon.ddns.net/chain.pem', 'utf8');
 
-var credentials = {key: privateKey, cert: certificate, ca: ca};
+var credentials = { key: privateKey, cert: certificate, ca: ca };
 
 //const hostaddr = "http://localhost:3000/";
 
-// Require REST-Routes
-const sessionRouter = require('./api/routes/session');
-const gpsRouter = require('./api/routes/gps');
-const accelerometerRouter = require('./api/routes/accelerometer');
-const batterieRouter = require('./api/routes/batterie');
-const bluetoothRouter = require('./api/routes/bluetooth');
-const gyroskopRouter = require('./api/routes/gyroskop');
-const serviceRouter = require('./api/routes/service');
-const kompassRouter = require('./api/routes/kompass');
-const lichtRouter = require('./api/routes/licht');
-const lokalisierungRouter = require('./api/routes/lokalisierung');
-const luftfeuchtigkeitRouter = require('./api/routes/luftfeuchtigkeit');
-const magnetometerRouter = require('./api/routes/magnetometer');
-const messwerterouteRouter = require('./api/routes/messwerteroute');
-const messwerteRouter = require('./api/routes/messwerte');
-const netzwerklokalisierungRouter = require('./api/routes/netzwerklokalisierung');
-const proximityRouter = require('./api/routes/proximity');
-const routeRouter = require('./api/routes/route');
-const schrittzaehlerRouter = require('./api/routes/schrittzaehler');
-const schwerkraftRouter = require('./api/routes/schwerkraft');
-const umgebungsluftdruckRouter = require('./api/routes/umgebungsluftdruck');
-const umgebungstemperaturRouter = require('./api/routes/umgebungstemperatur');
-const wifiRouter = require('./api/routes/wifi');
-const waypointRouter = require('./api/routes/waypoint');
 
 // APP-Instance
 const app = express();
+
+//Add all Routes for Services
+const lokalAppRoutes = require('./api/lokalappRest/paths')(app, hostaddr);
 
 // Set up body enconding, logger and static folder
 logger.token('device', function (req, res) { return req.headers['user-agent'].split('(')[1].split(')')[0] })
@@ -52,10 +32,10 @@ logger.token('device', function (req, res) { return req.headers['user-agent'].sp
 var accessLogStream = rfs('access.log', {
   interval: '1d', // rotate daily
   path: '/home/pi/pi-share/log'
-})
+});
 
 app.use(logger(':remote-addr - :remote-user [:date[clf]] ":method :url" :status "[Device] :device"', { stream: accessLogStream }));
-
+app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(xmlparser());
@@ -65,31 +45,6 @@ app.use(bodyParser.json());
 
 app.use(cookieParser());
 app.use(cors());
-
-// Set REST-Routes
-app.use('/api/gps', gpsRouter);
-app.use('/api/session', sessionRouter);
-app.use('/api/accelerometer', accelerometerRouter);
-app.use('/api/batterie', batterieRouter);
-app.use('/api/bluetooth', bluetoothRouter);
-app.use('/api/gyroskop', gyroskopRouter);
-app.use('/api/service', serviceRouter);
-app.use('/api/kompass', kompassRouter);
-app.use('/api/licht', lichtRouter);
-app.use('/api/lokalisierung', lokalisierungRouter);
-app.use('/api/luftfeuchtigkeit', luftfeuchtigkeitRouter);
-app.use('/api/magnetometer', magnetometerRouter);
-app.use('/api/messwerteroute', messwerterouteRouter);
-app.use('/api/messwerte', messwerteRouter);
-app.use('/api/netzwerklokalisierung', netzwerklokalisierungRouter);
-app.use('/api/proximity', proximityRouter);
-app.use('/api/route', routeRouter);
-app.use('/api/schrittzaehler', schrittzaehlerRouter);
-app.use('/api/schwerkraft', schwerkraftRouter);
-app.use('/api/umgebungsluftdruck', umgebungsluftdruckRouter);
-app.use('/api/umgebungstemperatur', umgebungstemperaturRouter);
-app.use('/api/wifi', wifiRouter);
-app.use('/api/waypoint', waypointRouter);
 
 
 // Get port from environment and store in Express.
@@ -131,45 +86,17 @@ function normalizePort(val) {
 //welcome page
 
 var router = express.Router();
-var db = require('./api/models/database');
-
 
 
 router.get('/', function (req, res) {
 
-  res.send('<h1><a href="' + hostaddr + 'api/">API Version 1.0</a></h1></br><a href="' + hostaddr + 'download/">Download App</a>');
+  res.send('<h1><a href="' + hostaddr + 'api/lokalapp">LokalApp-API Version 1.0</a></h1></br>');
 
 });
-router.get('/api', function (req, res) {
-
-  var htmlcode = '<html><head> <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="description" content=""><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"></link> <link href="https://getbootstrap.com/docs/4.0/examples/offcanvas/offcanvas.css" rel="stylesheet"></head><body><div class="my-3 p-3 bg-white rounded box-shadow"><h6 class="border-bottom border-gray pb-2 mb-0">Data</h6><div class="media text-muted pt-3"><ul>';
-  db.pool.getConnection(function (err, con) {
-    if (err) return res.status(400).send("Database Error");
-    else
-      con.query("Show tables;", function (err, result, fields) {
-        if (err) throw err;
-        result.forEach(function (obj) {
-          var name = obj.Tables_in_lokalapp;
-          htmlcode = htmlcode + '<li><a href="' + hostaddr + 'api/' + name + '">' + name + '</a></li>';
-        });
-        res.send(htmlcode + "</ul></div></div></body></html>");
-        res.end();
-        con.release();
-      });
-  });
-});
-
-router.get('/download', function (req, res) {
-
-  var file = __dirname + '/public/download/sensordatensammlerAppAndroid.apk';
-  res.download(file); // Set disposition and send it.
-
-});
-
 
 app.use('/', router);
-app.use('/api', router);
-app.use('/download', router);
+
+
 
 // Event listener for HTTP server "error" event..
 function onError(error) {
