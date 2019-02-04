@@ -26,14 +26,14 @@ const app = express();
 
 
 // Set up body enconding, logger and static folder
-logger.token('device', function (req, res) { return req.headers['user-agent'].split('(')[1].split(')')[0] })
+//logger.token('device', function (req, res) { return req.headers['user-agent'].split('(')[1].split(')')[0] })
 // create a rotating write stream
 var accessLogStream = rfs('access.log', {
   interval: '1d', // rotate daily
   path: '/home/pi/pi-share/log'
 });
 
-app.use(logger(':remote-addr - :remote-user [:date[clf]] ":method :url" :status "[Device] :device"', { stream: accessLogStream }));
+app.use(logger(':remote-addr - :remote-user [:date[clf]] ":method :url" :status "[Device] :user-agent"', { stream: accessLogStream }));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
