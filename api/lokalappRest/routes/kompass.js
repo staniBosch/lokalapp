@@ -29,7 +29,7 @@ router.get('/', function (req, res, next) {
     /* TODO:
      * create an kompass-value and add to the database
      */
-    var sql = 'INSERT INTO kompass (id, timestamp, degree, session_id) VALUES (NULL, CURRENT_TIMESTAMP, \'' + req.body.degree + '\', \'' + req.body.session_id + '\')';
+    var sql = 'INSERT INTO kompass (id, timestamp, value, session_id) VALUES (NULL, \'' + req.body.timestamp + '\', \'' + req.body.value + '\', \'' + req.body.session_id + '\')';
     db.pool.getConnection(function (err, con) {
       if (err) return res.status(400).send("Databse Error");
       else

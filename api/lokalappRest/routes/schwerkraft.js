@@ -29,7 +29,7 @@ router.post('/', function(req, res) {
   /* TODO:
    * create an schwerkraft-value and add to the database
    */
-  var sql = 'INSERT INTO schwerkraft (id, timestamp, value, session_id) VALUES (NULL, CURRENT_TIMESTAMP, \'' + req.body.value + '\', \'' + req.body.session_id + '\')';
+  var sql = 'INSERT INTO schwerkraft (id, timestamp, value, session_id) VALUES (NULL, \'' + req.body.timestamp + '\', \'' + req.body.value + '\', \'' + req.body.session_id + '\')';
   db.pool.getConnection(function (err, con) {
     if (err) return res.status(400).send("Databse Error");
     else

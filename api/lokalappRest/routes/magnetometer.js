@@ -29,7 +29,7 @@ router.post('/', function(req, res) {
   /* TODO:
    * create an magnetometer-sensor-data and add to the database
    */
-  var sql = 'INSERT INTO magnetometer (id, timestamp, x, y, z, session_id) VALUES (NULL, CURRENT_TIMESTAMP, \''+req.body.x+'\', \''+req.body.y+'\', \''+req.body.z+'\', \''+req.body.session_id+'\')';
+  var sql = 'INSERT INTO magnetometer (id, timestamp, x, y, z, session_id) VALUES (NULL, \'' + req.body.timestamp + '\', \''+req.body.x+'\', \''+req.body.y+'\', \''+req.body.z+'\', \''+req.body.session_id+'\')';
   db.pool.getConnection(function(err, con) {
       if(err) return res.status(400).send("Databse Error");
       else
