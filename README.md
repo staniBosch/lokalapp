@@ -8,7 +8,7 @@ To use the code modify the api/models/database.js.
 Run npm -install.
 
 ### Example Server
-http://sbcon.ddns.net:3000/api/gps
+http://sbcon.ddns.net:3000/api/lokalapp/gps
 
 ## Services
 
