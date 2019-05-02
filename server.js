@@ -10,7 +10,7 @@ const https = require('https');
 const cors = require('cors');
 const fs = require('fs');
 
-const hostaddr = "http://sbcon.ddns.net:3000/";
+const hostaddr = "http://sbcon.ddns.net:88/";
 const privateKey = fs.readFileSync('/etc/letsencrypt/live/sbcon.ddns.net/privkey.pem', 'utf8');
 const certificate = fs.readFileSync('/etc/letsencrypt/live/sbcon.ddns.net/cert.pem', 'utf8');
 const ca = fs.readFileSync('/etc/letsencrypt/live/sbcon.ddns.net/chain.pem', 'utf8');
@@ -49,7 +49,7 @@ app.use(cors());
 const lokalAppRoutes = require('./api/lokalappRest/paths')(app, hostaddr);
 
 // Get port from environment and store in Express.
-const port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT || '88');
 const sshport = normalizePort(process.env.PORT || '3443');
 
 //app.set('port', sshport);
