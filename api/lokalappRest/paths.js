@@ -6,7 +6,7 @@ module.exports = function (app) {
     
     router.get('/', function (req, res) {
         var htmlcode = '<html><head> <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="description" content=""><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"></link> <link href="https://getbootstrap.com/docs/4.0/examples/offcanvas/offcanvas.css" rel="stylesheet"></head><body><div class="my-3 p-3 bg-white rounded box-shadow"><h6 class="border-bottom border-gray pb-2 mb-0">Data</h6><div class="media text-muted pt-3"><ul>';
-        var hostaddr = req.protocol + '://'+ req.get('host');
+        var hostaddr = req.protocol + '://'+ req.get('host')+'/';
         db.pool.getConnection(function (err, con) {
             if (err) return res.status(400).send("Database Error: "+err);
             else
