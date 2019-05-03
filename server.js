@@ -97,7 +97,7 @@ var router = express.Router();
 
 router.get('/', function (req, res) {
 
-  res.send('<h1><a href="' + req.get('host') + '/api/lokalapp">LokalApp-API Version 1.0</a></h1></br>');
+  res.send('<h1><a href="' +req.protocol + '://'+ req.get('host') + '/api/lokalapp">LokalApp-API Version 1.0</a></h1></br>');
 
 });
 
