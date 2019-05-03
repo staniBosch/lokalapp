@@ -50,18 +50,24 @@ const lokalAppRoutes = require('./api/lokalappRest/paths')(app, hostaddr);
 
 // Get port from environment and store in Express.
 const port = normalizePort(process.env.PORT || '88');
+const port2 = normalizePort(process.env.PORT || '3000');
 const sshport = normalizePort(process.env.PORT || '3443');
 
 //app.set('port', sshport);
 
 // Create HTTP and https server.
 const server = http.createServer(app);
+const server2 = http.createServer(app);
 const sshserver = https.createServer(credentials, app);
 
 // Listen on provided port, on all network interfaces.
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
+server2.listen(port2);
+server2.on('error', onError);
+server2.on('listening', onListening);
 
 sshserver.listen(sshport);
 sshserver.on('error', onError);
@@ -91,7 +97,7 @@ var router = express.Router();
 
 router.get('/', function (req, res) {
 
-  res.send('<h1><a href="' + hostaddr + 'api/lokalapp">LokalApp-API Version 1.0</a></h1></br>');
+  res.send('<h1><a href="' + req.get('host') + 'api/lokalapp">LokalApp-API Version 1.0</a></h1></br>');
 
 });
 
