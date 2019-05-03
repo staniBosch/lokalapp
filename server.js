@@ -10,7 +10,7 @@ const https = require('https');
 const cors = require('cors');
 const fs = require('fs');
 
-const hostaddr = "http://sbcon.ddns.net:88/";
+//const hostaddr = "http://sbcon.ddns.net:88/";
 const privateKey = fs.readFileSync('/etc/letsencrypt/live/sbcon.ddns.net/privkey.pem', 'utf8');
 const certificate = fs.readFileSync('/etc/letsencrypt/live/sbcon.ddns.net/cert.pem', 'utf8');
 const ca = fs.readFileSync('/etc/letsencrypt/live/sbcon.ddns.net/chain.pem', 'utf8');
@@ -46,7 +46,7 @@ app.use(cookieParser());
 app.use(cors());
 
 //Add all Routes for Services
-const lokalAppRoutes = require('./api/lokalappRest/paths')(app, hostaddr);
+//const lokalAppRoutes = require('./api/lokalappRest/paths')(app, hostaddr);
 
 // Get port from environment and store in Express.
 const port = normalizePort(process.env.PORT || '88');
@@ -97,7 +97,7 @@ var router = express.Router();
 
 router.get('/', function (req, res) {
 
-  res.send('<h1><a href="' + req.get('host') + 'api/lokalapp">LokalApp-API Version 1.0</a></h1></br>');
+  res.send('<h1><a href="' + req.get('host') + '/api/lokalapp">LokalApp-API Version 1.0</a></h1></br>');
 
 });
 
