@@ -49,7 +49,7 @@ router.get('/id/:id/:sensor', function (req, res, next) {
 });
 
 // GET /api/session/:id/:sensor/:timestamp
-router.get('/id/:id/:sensor/:timestamp', function (req, res, next) {
+router.get('/id/:id/:sensor/after/:timestamp', function (req, res, next) {
 
   /* TODO:
    * get all session-data from the database after the time of the given timestamp
@@ -61,7 +61,7 @@ router.get('/id/:id/:sensor/:timestamp', function (req, res, next) {
   if (sensor == "lokalisierung" || sensor == "messwerte")
     sql = "SELECT * FROM session inner join " + sensor + " on session.id=" + sensor + ".session_id where session.id=" + id + " ORDER BY "+sensor+".timestamp";
   else
-    sql = "SELECT * FROM session inner join " + sensor + " on session.id=" + sensor + ".session_id where session.id=" + id + " AND "+ sensor + ".timestamp <"+ timestamp;
+    sql = "SELECT * FROM session inner join " + sensor + " on session.id=" + sensor + ".session_id where session.id=" + id + " AND "+ sensor + ".timestamp >"+ timestamp;
   db.pool.getConnection(function (err, con) {
     if (err) return res.status(400).send("Databse Error");
     else
