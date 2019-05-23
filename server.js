@@ -53,9 +53,8 @@ require('./api/lokalappRest/paths')(app);
 const port = normalizePort(process.env.PORT || '88');
 const port2 = normalizePort(process.env.PORT || '3000');
 const sshport = normalizePort(process.env.PORT || '3443');
-const sshport2 = normalizePort(process.env.PORT || '3444');
 
-//app.set('port', sshport);
+app.set('port', sshport);
 
 // Create HTTP and https server.
 const server = http.createServer(app);
@@ -106,6 +105,9 @@ router.get('/', function (req, res) {
 
 app.use('/', router);
 
+//create WebSockets
+const ws = new WebSocket.Server({ server : server2, path: "/websocket" });
+require('./api/lokalappRest/websocket/accelerometer')(ws);
 
 
 // Event listener for HTTP server "error" event..
