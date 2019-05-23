@@ -107,7 +107,7 @@ app.use('/', router);
 
 //create WebSockets
 
-require('./api/lokalappRest/websocket/accelerometerws')(server2);
+//require('./api/lokalappRest/websocket/accelerometerws')(server2);
 
 
 // Event listener for HTTP server "error" event..
