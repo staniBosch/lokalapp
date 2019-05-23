@@ -2,7 +2,7 @@ module.exports = function (server) {
 
     var db = require('../models/database');
 
-    const ws = new WebSocket.Server({ server : server, path: "/api/lokalapp/accelerometer" });
+    const ws = new WebSocket.Server({ server : server, path: "/api/lokalapp/ws/accelerometer" });
     ws.on('connection', function connection(ws) {
         ws.on('message', function incoming(message) {
             console.log('received: %s', message);
