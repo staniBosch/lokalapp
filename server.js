@@ -53,6 +53,7 @@ require('./api/lokalappRest/paths')(app);
 const port = normalizePort(process.env.PORT || '88');
 const port2 = normalizePort(process.env.PORT || '3000');
 const sshport = normalizePort(process.env.PORT || '3443');
+const sshport2 = normalizePort(process.env.PORT || '3444');
 
 //app.set('port', sshport);
 
@@ -60,17 +61,6 @@ const sshport = normalizePort(process.env.PORT || '3443');
 const server = http.createServer(app);
 const server2 = http.createServer(app);
 const sshserver = https.createServer(credentials, app);
-
-
-const wss = new WebSocket.Server({ sshserver });
- 
-wss.on('connection', function connection(ws) {
-  ws.on('message', function incoming(message) {
-    console.log('received: %s', message);
-  });
- 
-  ws.send('connected');
-});
 
 // Listen on provided port, on all network interfaces.
 server.listen(port);
@@ -84,6 +74,7 @@ server2.on('listening', onListening);
 sshserver.listen(sshport);
 sshserver.on('error', onError);
 sshserver.on('listening', onListening);
+
 
 // Normalize a port into a number, string, or false.
 function normalizePort(val) {
@@ -115,7 +106,15 @@ router.get('/', function (req, res) {
 
 app.use('/', router);
 
-
+const wss = new WebSocket.Server({ server2 });
+ 
+wss.on('connection', function connection(ws) {
+  ws.on('message', function incoming(message) {
+    console.log('received: %s', message);
+  });
+ 
+  ws.send('something');
+});
 
 // Event listener for HTTP server "error" event..
 function onError(error) {
