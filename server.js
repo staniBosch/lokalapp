@@ -1,4 +1,5 @@
 const express = require('express');
+const WebSocket = require('ws');
 const bodyParser = require('body-parser');
 const xmlparser = require('express-xml-bodyparser');
 const cookieParser = require('cookie-parser');
@@ -59,6 +60,17 @@ const sshport = normalizePort(process.env.PORT || '3443');
 const server = http.createServer(app);
 const server2 = http.createServer(app);
 const sshserver = https.createServer(credentials, app);
+
+
+const wss = new WebSocket.Server({ sshserver });
+ 
+wss.on('connection', function connection(ws) {
+  ws.on('message', function incoming(message) {
+    console.log('received: %s', message);
+  });
+ 
+  ws.send('connected');
+});
 
 // Listen on provided port, on all network interfaces.
 server.listen(port);
