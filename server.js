@@ -106,8 +106,8 @@ router.get('/', function (req, res) {
 app.use('/', router);
 
 //create WebSockets
-const ws = new WebSocket.Server({ server : server2, path: "/websocket" });
-require('./api/lokalappRest/websocket/accelerometer')(ws);
+
+require('./api/lokalappRest/websocket/accelerometer')(server2);
 
 
 // Event listener for HTTP server "error" event..
