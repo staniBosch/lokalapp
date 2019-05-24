@@ -11,9 +11,10 @@ module.exports = function (s) {
         
                 if (err) return ws.send("Database Error: " + err);
                 else
-                    con.query("Show tables;", function (err, result, fields) {
+                    con.query("Select * from lokalisierung;", function (err, result, fields) {
                         if (err) ws.send(err);
-                        ws.send("mysql query succes in "+(d-Date.now())+"ms");                       
+                        ws.send("mysql query succes in "+(d-Date.now())+"ms"); 
+                        ws.send(result+"");                     
                     });
             });
 
