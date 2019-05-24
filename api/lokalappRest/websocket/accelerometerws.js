@@ -1,9 +1,8 @@
-module.exports = function (server) {
+module.exports = function (s) {
 
     var db = require('../models/database');
 
-    const ws = new WebSocket.Server({ server : server, path: "/api/lokalapp/ws/accelerometer" });
-    ws.on('connection', function connection(ws) {
+    s.on('connection', function connection(ws) {
         ws.on('message', function incoming(message) {
             console.log('received: %s', message);
             ws.send("test failed");
