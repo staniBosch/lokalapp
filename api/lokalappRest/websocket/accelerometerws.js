@@ -14,8 +14,8 @@ module.exports = function (s) {
                     con.query("Select * from "+message+";", function (err, result, fields) {
                         if (err) ws.send(err);
                         var rows = JSON.stringify(result);
-                        ws.send("mysql query succes in "+(d-Date.now())+"ms"); 
                         ws.send(rows); 
+                        ws.send("mysql query succes in "+(d-Date.now())+"ms"); 
                         con.release();                    
                     });                
             });
