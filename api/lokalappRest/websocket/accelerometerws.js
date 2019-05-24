@@ -9,12 +9,15 @@ module.exports = function (s) {
 
 
              db.pool.getConnection(function (err, con) {
+        
                 if (err) return ws.send("Database Error: " + err);
                 else
                     con.query("Show tables;", function (err, result, fields) {
-                        if (err) throw err;
-                        ws.send(result);                        
+                        if (err) ws.send(err);
+                        ws.send("mysql query succes");                       
                     });
+
+
             });
 
         });
