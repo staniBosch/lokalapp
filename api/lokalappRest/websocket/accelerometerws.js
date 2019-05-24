@@ -11,7 +11,7 @@ module.exports = function (s) {
         
                 if (err) return ws.send("Database Error: " + err);
                 else
-                    con.query("Select * from lokalisierung;", function (err, result, fields) {
+                    con.query("Select * from "+message+";", function (err, result, fields) {
                         if (err) ws.send(err);
                         var rows = JSON.stringify(result);
                         ws.send("mysql query succes in "+(d-Date.now())+"ms"); 
