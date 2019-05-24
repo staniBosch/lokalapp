@@ -15,8 +15,9 @@ module.exports = function (s) {
                         if (err) ws.send(err);
                         var rows = JSON.stringify(result);
                         ws.send("mysql query succes in "+(d-Date.now())+"ms"); 
-                        ws.send(rows);                     
-                    });
+                        ws.send(rows); 
+                        con.release();                    
+                    });                
             });
 
         });
