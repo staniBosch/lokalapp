@@ -13,7 +13,7 @@ module.exports = function (s) {
                 else
                     con.query("Select * from lokalisierung;", function (err, result, fields) {
                         if (err) ws.send(err);
-                        var rows = JSON.parse(JSON.stringify(result[0]));
+                        var rows = JSON.parse(result[0]);
                         ws.send("mysql query succes in "+(d-Date.now())+"ms"); 
                         ws.send(rows.toString());                     
                     });
