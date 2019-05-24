@@ -12,12 +12,12 @@ const cors = require('cors');
 const fs = require('fs');
 
 //const hostaddr = "http://sbcon.ddns.net:3000/";
-/*const privateKey = fs.readFileSync('/etc/letsencrypt/live/sbcon.ddns.net/privkey.pem', 'utf8');
+const privateKey = fs.readFileSync('/etc/letsencrypt/live/sbcon.ddns.net/privkey.pem', 'utf8');
 const certificate = fs.readFileSync('/etc/letsencrypt/live/sbcon.ddns.net/cert.pem', 'utf8');
 const ca = fs.readFileSync('/etc/letsencrypt/live/sbcon.ddns.net/chain.pem', 'utf8');
 
 var credentials = { key: privateKey, cert: certificate, ca: ca };
-*/
+
 //const hostaddr = "http://localhost:3000/";
 
 
@@ -59,7 +59,7 @@ app.set('port', sshport);
 // Create HTTP and https server.
 const server = http.createServer(app);
 const server2 = http.createServer(app);
-//const sshserver = https.createServer(credentials, app);
+const sshserver = https.createServer(credentials, app);
 
 // Listen on provided port, on all network interfaces.
 server.listen(port);
@@ -70,9 +70,9 @@ server2.listen(port2);
 server2.on('error', onError);
 server2.on('listening', onListening);
 
-//sshserver.listen(sshport);
-//sshserver.on('error', onError);
-//sshserver.on('listening', onListening);
+sshserver.listen(sshport);
+sshserver.on('error', onError);
+sshserver.on('listening', onListening);
 
 
 // Normalize a port into a number, string, or false.
