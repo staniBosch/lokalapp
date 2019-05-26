@@ -106,7 +106,7 @@ router.get('/', function (req, res) {
 app.use('/', router);
 
 //create WebSockets
-const ws = new WebSocket.Server({ server : server2, path: "/ws/lokalapp/accelerometer" });
+const ws = new WebSocket.Server({ server : sshserver, path: "/ws/lokalapp/accelerometer" });
 require('./api/lokalappRest/websocket/accelerometerws')(ws);
 
 
