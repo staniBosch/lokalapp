@@ -17,6 +17,7 @@
     "morgan": "^1.9.1",
     "mysql": "^2.16.0",
     "rotating-file-stream": "^1.4.0",
+    "url": "^0.11.0",
     "ws": "^7.0.0",
     "xmlbuilder": "^10.1.1"
   }
