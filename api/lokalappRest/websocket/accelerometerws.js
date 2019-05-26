@@ -15,7 +15,7 @@ module.exports = function (sshserver) {
             console.log('received: %s', message);
             var d = Date.now();
             ws.send("test failed -" + (d - Date.now()) + "ms");
-            var putData = new JSONObject(message);
+            var putData = JSON.parse(message);
             var sql = 'INSERT INTO accelerometer (id, timestamp, x, y, z, session_id) VALUES (NULL, \'' + putData.timestamp + '\', \'' + putData.x + '\', \'' + putData.y + '\', \'' + putData.z + '\', \'' + putData.session_id + '\')';
             db.pool.getConnection(function (err, con) {
                 if (err) return ws.send("Database Error");
@@ -38,7 +38,7 @@ module.exports = function (sshserver) {
             console.log('received: %s', message);
             var d = Date.now();
             ws.send("test failed -" + (d - Date.now()) + "ms");
-            var putData = new JSONObject(message);
+            var putData = JSON.parse(message);
             var sql = 'INSERT INTO gyroskop (id, timestamp, x, y, z, session_id) VALUES (NULL, \'' + putData.timestamp + '\', \'' + putData.x + '\', \'' + putData.y + '\', \'' + putData.z + '\', \'' + putData.session_id + '\')';
             db.pool.getConnection(function (err, con) {
                 if (err) return ws.send("Databse Error");
