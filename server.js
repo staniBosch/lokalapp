@@ -1,5 +1,4 @@
 const express = require('express');
-const WebSocket = require('ws');
 const bodyParser = require('body-parser');
 const xmlparser = require('express-xml-bodyparser');
 const cookieParser = require('cookie-parser');
@@ -106,8 +105,8 @@ router.get('/', function (req, res) {
 app.use('/', router);
 
 //create WebSockets
-const ws = new WebSocket.Server({ server : sshserver, path: "/ws/lokalapp/accelerometer" });
-require('./api/lokalappRest/websocket/accelerometerws')(ws);
+
+require('./api/lokalappRest/websocket/accelerometerws')(sshserver);
 
 
 // Event listener for HTTP server "error" event..
