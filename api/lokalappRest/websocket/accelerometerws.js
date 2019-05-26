@@ -11,8 +11,7 @@ module.exports = function (sshserver) {
 
 
     wssaccelerometer.on('connection', function connection(ws) {
-        ws.on('message', function incoming(message) {
-            console.log('received: %s', message);
+        ws.on('message', function incoming(message) {            
             var d = Date.now();
             ws.send("test failed -" + (d - Date.now()) + "ms");
             var putData = JSON.parse(message);
@@ -34,8 +33,7 @@ module.exports = function (sshserver) {
     });
 
     wssgyroskop.on('connection', function connection(ws) {
-        ws.on('message', function incoming(message) {
-            console.log('received: %s', message);
+        ws.on('message', function incoming(message) {           
             var d = Date.now();
             ws.send("test failed -" + (d - Date.now()) + "ms");
             var putData = JSON.parse(message);
