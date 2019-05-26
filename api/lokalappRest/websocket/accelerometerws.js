@@ -2,7 +2,7 @@ module.exports = function (sshserver) {
 
     const WebSocket = require('ws');
     var db = require('../models/database');
-    const wss = new WebSocket.Server({ server: sshserver, path: "/ws/lokalapp/accelerometer" });
+    //const wss = new WebSocket.Server({ server: sshserver, path: "/ws/lokalapp/accelerometer" });
 
     const wssaccelerometer = new WebSocket.Server({ noServer: true });
     const wssgyroskop = new WebSocket.Server({ noServer: true });
