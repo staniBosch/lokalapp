@@ -107,6 +107,7 @@ app.use('/', router);
 //create WebSockets
 
 require('./api/lokalappRest/websocket/accelerometerws')(sshserver);
+require('./api/server1000TheGame/ws')(server2);
 
 
 // Event listener for HTTP server "error" event..
