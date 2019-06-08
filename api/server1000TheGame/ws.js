@@ -13,7 +13,7 @@ module.exports = function (server) {
             ws.send(message);     
         });
         const ip = req.connection.remoteAddress;        
-        ws.send('Connection 1000TheGame establised, your ip is:'+ip+' and your name is:'+ req.params);
+        ws.send('Connection 1000TheGame establised, your ip is:'+ip+' and your name is:'+ req);
     });
 
     server.on('upgrade', function upgrade(request, socket, head) {
