@@ -8,11 +8,13 @@ module.exports = function (server) {
     const wss1000TheGame = new WebSocket.Server({ noServer: true });
    
 
-    wss1000TheGame.on('connection', function connection(ws) {
+    wss1000TheGame.on('connection', function connection(ws, req) {
         ws.on('message', function incoming(message) {
             ws.send(message);     
         });
-        ws.send('Connection 1000TheGame establised');
+        const ip = req.connection.remoteAddress;
+        req.params
+        ws.send('Connection 1000TheGame establised, your ip is:'+ip+' and your name is:'+ req.params.name);
     });
 
     server.on('upgrade', function upgrade(request, socket, head) {
