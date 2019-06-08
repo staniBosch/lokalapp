@@ -12,8 +12,7 @@ module.exports = function (server) {
         ws.on('message', function incoming(message) {
             ws.send(message);     
         });
-        const ip = req.connection.remoteAddress;
-        req.params
+        const ip = req.connection.remoteAddress;        
         ws.send('Connection 1000TheGame establised, your ip is:'+ip+' and your name is:'+ req.params.name);
     });
 
