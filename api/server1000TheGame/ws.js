@@ -2,18 +2,23 @@ module.exports = function (server) {
 
     const WebSocket = require('ws');
     //var db = require('../models/database');
-    var url = require('url');
+    var url = require('url'), CLIENTS=[];
     //const wss = new WebSocket.Server({ server: sshserver, path: "/ws/lokalapp/accelerometer" });
 
     const wss1000TheGame = new WebSocket.Server({ noServer: true });
    
 
     wss1000TheGame.on('connection', function connection(ws, req) {
+        CLIENTS.push(ws);
         ws.on('message', function incoming(message) {
             ws.send(message);     
         });
-        const ip = req.connection.remoteAddress;        
-        ws.send('Connection 1000TheGame establised, your ip is:'+ip+' and your name is:'+ req);
+        const ip = req.connection.remoteAddress; 
+        const parameters = url.parse(req.url, true); 
+        CLIENTS.forEach(element => {
+            element.send('Connection 1000TheGame establised, your ip is:'+ip+' and your name is:'+ parameters.query.name);
+        });      
+       
     });
 
     server.on('upgrade', function upgrade(request, socket, head) {
