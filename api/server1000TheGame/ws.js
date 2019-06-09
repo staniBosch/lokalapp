@@ -9,14 +9,19 @@ module.exports = function (server) {
    
 
     wss1000TheGame.on('connection', function connection(ws, req) {
-        CLIENTS.push(ws);
+        
         ws.on('message', function incoming(message) {
-            ws.send(message);     
+            CLIENTS.forEach(element => {
+                if(element != ws)
+                    element.send(ws.user+":"+message);
+            });                  
         });
         const ip = req.connection.remoteAddress; 
         const parameters = url.parse(req.url, true); 
+        ws.user = parameters.query.name;
+        CLIENTS.push(ws);
         CLIENTS.forEach(element => {
-            element.send('Connection 1000TheGame establised, your ip is:'+ip+' and your name is:'+ parameters.query.name);
+            element.send('Connection 1000TheGame establised, your ip is:'+ip+' and your name is:'+ ws.user);
         });      
        
     });
