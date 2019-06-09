@@ -24,6 +24,10 @@ module.exports = function (server) {
                     element.send(ws.user + ":" + message);
             });
         });
+        ws.on('close', function close() {
+            CLIENTS.forEach(element => {
+                element.send(ws.user+" disconnected!");
+          });
         const ip = req.connection.remoteAddress;
         const parameters = url.parse(req.url, true);
         ws.user = parameters.query.name;
