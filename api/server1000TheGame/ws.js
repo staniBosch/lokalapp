@@ -2,28 +2,36 @@ module.exports = function (server) {
 
     const WebSocket = require('ws');
     //var db = require('../models/database');
-    var url = require('url'), CLIENTS=[];
+    var url = require('url'), CLIENTS = [];
     //const wss = new WebSocket.Server({ server: sshserver, path: "/ws/lokalapp/accelerometer" });
 
     const wss1000TheGame = new WebSocket.Server({ noServer: true });
-   
+
+    function noop() { }
+
+    function heartbeat() {
+        this.isAlive = true;
+    }
 
     wss1000TheGame.on('connection', function connection(ws, req) {
-        
+       
+        ws.isAlive = true;
+        ws.on('pong', heartbeat);
+
         ws.on('message', function incoming(message) {
             CLIENTS.forEach(element => {
-                if(element != ws)
-                    element.send(ws.user+":"+message);
-            });                  
+                if (element != ws)
+                    element.send(ws.user + ":" + message);
+            });
         });
-        const ip = req.connection.remoteAddress; 
-        const parameters = url.parse(req.url, true); 
+        const ip = req.connection.remoteAddress;
+        const parameters = url.parse(req.url, true);
         ws.user = parameters.query.name;
         CLIENTS.push(ws);
         CLIENTS.forEach(element => {
-            element.send('Connection 1000TheGame establised, your ip is:'+ip+' and your name is:'+ ws.user);
-        });      
-       
+            element.send('Connection 1000TheGame establised, your ip is:' + ip + ' and your name is:' + ws.user);
+        });
+
     });
 
     server.on('upgrade', function upgrade(request, socket, head) {
@@ -32,11 +40,25 @@ module.exports = function (server) {
         if (pathname === '/ws/1000TheGame') {
             wss1000TheGame.handleUpgrade(request, socket, head, function done(ws) {
                 wss1000TheGame.emit('connection', ws, request);
-            });        
+            });
         } else {
             socket.destroy();
         }
     });
+
+    const interval = setInterval(function ping() {
+        wss1000TheGame.clients.forEach(function each(ws) {
+          if (ws.isAlive === false){ 
+            CLIENTS.forEach(element => {
+                element.send(ws.user+" disconnected!");
+            });  
+            return ws.terminate();
+          }
+          ws.isAlive = false;
+          ws.ping(noop);
+        });
+      }, 30000);
+
 
     /*wss.on('connection', function connection(ws) {
         ws.on('message', function incoming(message) {
