@@ -2,7 +2,7 @@ module.exports = function (server) {
 
     const WebSocket = require('ws');
     //var db = require('../models/database');
-    var url = require('url'), CLIENTS = [];
+    var url = require('url');
     //const wss = new WebSocket.Server({ server: sshserver, path: "/ws/lokalapp/accelerometer" });
 
     const wss1000TheGame = new WebSocket.Server({ noServer: true });
@@ -19,21 +19,20 @@ module.exports = function (server) {
         ws.on('pong', heartbeat);
 
         ws.on('message', function incoming(message) {
-            CLIENTS.forEach(element => {
+            wss1000TheGame.clients.forEach(element => {
                 if (element != ws)
                     element.send(ws.user + ":" + message);
             });
         });
         ws.on('close', function close() {
-            CLIENTS.forEach(element => {
+            wss1000TheGame.clients.forEach(element => {
                 element.send(ws.user+" disconnected!");
-          });
+          });          
         });
         const ip = req.connection.remoteAddress;
         const parameters = url.parse(req.url, true);
-        ws.user = parameters.query.name;
-        CLIENTS.push(ws);
-        CLIENTS.forEach(element => {
+        ws.user = parameters.query.name;        
+        wss1000TheGame.clients.forEach(element => {
             element.send('Connection 1000TheGame establised, your ip is:' + ip + ' and your name is:' + ws.user);
         });
 
@@ -54,7 +53,7 @@ module.exports = function (server) {
     const interval = setInterval(function ping() {
         wss1000TheGame.clients.forEach(function each(ws) {
           if (ws.isAlive === false){ 
-            CLIENTS.forEach(element => {
+            wss1000TheGame.clients.forEach(element => {
                 element.send(ws.user+" disconnected!");
             });  
             return ws.terminate();
