@@ -21,7 +21,7 @@ module.exports = function (server) {
         ws.on('message', function incoming(message) {
             wss1000TheGame.clients.forEach(element => {
                 if (element != ws)
-                    element.send(ws.user + ":" + message);
+                    element.send(message);
             });
         });
         ws.on('close', function close() {
@@ -29,12 +29,12 @@ module.exports = function (server) {
                 element.send(ws.user+" disconnected!");
           });          
         });
-        const ip = req.connection.remoteAddress;
-        const parameters = url.parse(req.url, true);
-        ws.user = parameters.query.name;        
-        wss1000TheGame.clients.forEach(element => {
-            element.send('Connection 1000TheGame establised, your ip is:' + ip + ' and your name is:' + ws.user);
-        });
+        //const ip = req.connection.remoteAddress;
+        //const parameters = url.parse(req.url, true);
+        //ws.user = parameters.query.name;        
+        //wss1000TheGame.clients.forEach(element => {
+        //    if(element != ws) element.send(element.user);
+        //});
 
     });
 
