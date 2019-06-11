@@ -30,6 +30,7 @@ module.exports = function (server) {
                 element.send(ws.user+" disconnected!");
           });          
         });
+        console.log(ws.user+" connected!");
         //const ip = req.connection.remoteAddress;
         //const parameters = url.parse(req.url, true);
         //ws.user = parameters.query.name;        
