@@ -17,7 +17,8 @@ module.exports = function (server) {
        
         ws.isAlive = true;
         ws.on('pong', heartbeat);
-
+        ws.user = parameters.query.name;
+        
         ws.on('message', function incoming(message) {
             wss1000TheGame.clients.forEach(element => {
                 if (element != ws)
