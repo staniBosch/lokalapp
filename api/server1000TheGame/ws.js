@@ -17,6 +17,7 @@ module.exports = function (server) {
        
         ws.isAlive = true;
         ws.on('pong', heartbeat);
+        const parameters = url.parse(req.url, true);
         ws.user = parameters.query.name;
         
         ws.on('message', function incoming(message) {
