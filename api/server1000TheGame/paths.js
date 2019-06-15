@@ -10,7 +10,7 @@ module.exports = function (app) {
 
     });
     //app.use('/api/lokalapp', router);
-    app.use('/api/1000TheGame/download', router);
+    app.use('/api/1000TheGame', router);
 
 
     // Require REST-Routes
