@@ -47,6 +47,7 @@ app.use(cors());
 
 //Add all Routes for Services
 require('./api/lokalappRest/paths')(app);
+require('./api/server1000TheGame/paths')(app);
 
 // Get port from environment and store in Express.
 const port = normalizePort(process.env.PORT || '88');
