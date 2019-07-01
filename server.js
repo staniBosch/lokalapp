@@ -11,9 +11,9 @@ const cors = require('cors');
 const fs = require('fs');
 
 //const hostaddr = "http://sbcon.ddns.net:3000/";
-const privateKey = fs.readFileSync('/etc/letsencrypt/live/sbcon.ddns.net/privkey.pem', 'utf8');
-const certificate = fs.readFileSync('/etc/letsencrypt/live/sbcon.ddns.net/cert.pem', 'utf8');
-const ca = fs.readFileSync('/etc/letsencrypt/live/sbcon.ddns.net/chain.pem', 'utf8');
+const privateKey = fs.readFileSync('/etc/letsencrypt/live/sensordatensammler.dynv6.net/privkey.pem', 'utf8');
+const certificate = fs.readFileSync('/etc/letsencrypt/live/sensordatensammler.dynv6.net/cert.pem', 'utf8');
+const ca = fs.readFileSync('/etc/letsencrypt/live/sensordatensammler.dynv6.net/chain.pem', 'utf8');
 
 var credentials = { key: privateKey, cert: certificate, ca: ca };
 
