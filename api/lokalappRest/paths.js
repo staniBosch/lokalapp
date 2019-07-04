@@ -28,6 +28,12 @@ module.exports = function (app) {
         res.download(file); // Set disposition and send it.
 
     });
+    router.get('/download/umgebungsapp', function (req, res) {
+
+        var file = __dirname + '/public/download/umgebungsapp.apk';
+        res.download(file); // Set disposition and send it.
+
+    });
     app.use('/api/lokalapp', router);
     //app.use('/api/lokalapp/download', router);
 
